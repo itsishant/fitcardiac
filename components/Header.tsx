@@ -1,42 +1,45 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
-import Image from 'next/image'
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
-  const [isMoreOpen, setIsMoreOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsMoreOpen(false)
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsMoreOpen(false);
       }
-    }
+    };
 
     if (isMoreOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isMoreOpen])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMoreOpen]);
 
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Facilities', href: '/facilities' },
-  ]
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Facilities", href: "/facilities" },
+  ];
 
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm"
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,9 +52,8 @@ export default function Header() {
           >
             <Link href="/" className="flex items-center gap-3">
               <div className="relative w-10 h-10 md:w-12 md:h-12">
-                {/* Place your logo file in /public (e.g. /fit-cardiac-logo.png) */}
                 <Image
-                  src="/fit-cardiac-logo.png"
+                  src="/logo.jpeg"
                   alt="FIT CARDIAC DIAGNOSTIC CENTRE logo"
                   fill
                   className="object-contain"
@@ -106,9 +108,8 @@ export default function Header() {
               >
                 More
                 <svg
-                  className={`ml-1 w-4 h-4 transition-transform duration-200 ${
-                    isMoreOpen ? 'rotate-180' : ''
-                  }`}
+                  className={`ml-1 w-4 h-4 transition-transform duration-200 ${isMoreOpen ? "rotate-180" : ""
+                    }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -131,6 +132,13 @@ export default function Header() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
                   >
+                    <Link
+                      href="/referral"
+                      className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors font-semibold"
+                      onClick={() => setIsMoreOpen(false)}
+                    >
+                      Physician Referral
+                    </Link>
                     <Link
                       href="/contact"
                       className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors"
@@ -158,12 +166,12 @@ export default function Header() {
             </motion.div>
           </div>
 
-          {/* Contact CTA (no sign-in/up) */}
+          {/* Contact CTA */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="hidden sm:flex items-center space-x-4"
+            className="hidden sm:flex items-center"
           >
             <Link
               href="tel:+14165551234"
@@ -171,18 +179,9 @@ export default function Header() {
             >
               Call: +1 (416) 555-1234
             </Link>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/contact"
-                className="bg-primary-green text-secondary-gray px-6 py-2 rounded-lg font-medium hover:bg-primary-teal hover:text-white transition-all duration-200"
-              >
-                Contact Our Team
-              </Link>
-            </motion.div>
           </motion.div>
         </div>
       </nav>
     </motion.header>
-  )
+  );
 }
-

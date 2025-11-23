@@ -1,69 +1,103 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import { Heart, Activity, Shield, Stethoscope, Clock, Users, FileText, TrendingUp } from 'lucide-react'
-import Link from 'next/link'
+import { motion } from "framer-motion";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import {
+  Heart,
+  Activity,
+  Shield,
+  Stethoscope,
+  Clock,
+  Users,
+  FileText,
+  TrendingUp,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 const services = [
   {
+    icon: Stethoscope,
+    title: "Cardiology Consultation",
+    description:
+      "Expert consultation with experienced cardiologists for comprehensive cardiac assessment and treatment planning.",
+    features: [
+      "Full Cardiac Evaluation",
+      "Treatment Planning",
+      "Follow-up Care",
+    ],
+    color: "from-red-400 to-pink-500",
+  },
+  {
     icon: Heart,
-    title: 'Cardiac Consultation',
-    description: 'Comprehensive cardiac evaluations and consultations with experienced cardiologists.',
-    features: ['ECG Analysis', 'Risk Assessment', 'Treatment Planning'],
-    color: 'from-red-400 to-pink-500',
+    title: "Internal Medicine (Cardiology)",
+    description:
+      "Specialized internal medicine services focusing on cardiovascular health and comprehensive disease management.",
+    features: [
+      "Preventive Care",
+      "Chronic Disease Management",
+      "Risk Assessment",
+    ],
+    color: "from-blue-400 to-cyan-500",
   },
   {
     icon: Activity,
-    title: 'Emergency Cardiac Care',
-    description: '24/7 emergency cardiac services with rapid response teams for critical heart conditions.',
-    features: ['24/7 Availability', 'Rapid Response', 'Critical Care'],
-    color: 'from-blue-400 to-cyan-500',
-  },
-  {
-    icon: Shield,
-    title: 'Preventive Cardiology',
-    description: 'Proactive heart health management through screenings, lifestyle counseling, and risk reduction.',
-    features: ['Health Screenings', 'Lifestyle Counseling', 'Risk Reduction'],
-    color: 'from-green-400 to-emerald-500',
-  },
-  {
-    icon: Stethoscope,
-    title: 'Cardiac Diagnostics',
-    description: 'Advanced diagnostic services including echocardiography, stress tests, and cardiac MRI.',
-    features: ['Echocardiography', 'Stress Tests', 'Cardiac MRI'],
-    color: 'from-purple-400 to-indigo-500',
-  },
-  {
-    icon: Clock,
-    title: 'Cardiac Rehabilitation',
-    description: 'Comprehensive rehabilitation programs to help patients recover and improve heart health.',
-    features: ['Exercise Programs', 'Nutrition Counseling', 'Support Groups'],
-    color: 'from-orange-400 to-red-500',
-  },
-  {
-    icon: Users,
-    title: 'Cardiac Surgery',
-    description: 'Expert cardiac surgical procedures performed by board-certified cardiac surgeons.',
-    features: ['Bypass Surgery', 'Valve Replacement', 'Minimally Invasive'],
-    color: 'from-teal-400 to-cyan-500',
-  },
-  {
-    icon: FileText,
-    title: 'Cardiac Monitoring',
-    description: 'Continuous cardiac monitoring services including Holter monitoring and event recorders.',
-    features: ['Holter Monitoring', 'Event Recorders', 'Remote Monitoring'],
-    color: 'from-pink-400 to-rose-500',
+    title: "Echocardiogram",
+    description:
+      "Advanced ultrasound imaging of your heart to assess structure, function, and blood flow patterns with precision.",
+    features: [
+      "Heart Structure Analysis",
+      "Valve Function",
+      "Blood Flow Assessment",
+    ],
+    color: "from-green-400 to-emerald-500",
   },
   {
     icon: TrendingUp,
-    title: 'Heart Health Programs',
-    description: 'Specialized programs for managing chronic heart conditions and improving quality of life.',
-    features: ['Chronic Care Management', 'Medication Management', 'Follow-up Care'],
-    color: 'from-indigo-400 to-purple-500',
+    title: "Stress Echocardiogram",
+    description:
+      "Comprehensive cardiac imaging during controlled exercise to evaluate heart function under physical stress conditions.",
+    features: ["Exercise Monitoring", "Real-time Imaging", "Stress Analysis"],
+    color: "from-purple-400 to-indigo-500",
   },
-]
+  {
+    icon: Activity,
+    title: "Exercise Stress Test",
+    description:
+      "Monitor heart activity, blood pressure, and ECG during controlled exercise to detect cardiac abnormalities.",
+    features: [
+      "ECG Monitoring",
+      "Blood Pressure Tracking",
+      "Exercise Capacity",
+    ],
+    color: "from-orange-400 to-red-500",
+  },
+  {
+    icon: Clock,
+    title: "Heart Monitor (Holter)",
+    description:
+      "Portable 24-48 hour ECG monitoring to track heart rhythm and detect irregular heartbeats in daily activities.",
+    features: [
+      "24-48 Hour Monitoring",
+      "Rhythm Analysis",
+      "Daily Activity Tracking",
+    ],
+    color: "from-teal-400 to-cyan-500",
+  },
+  {
+    icon: FileText,
+    title: "Resting ECG",
+    description:
+      "Quick and accurate electrocardiogram to measure electrical activity and rhythm of your heart at rest.",
+    features: [
+      "Quick Assessment",
+      "Electrical Activity",
+      "Heart Rhythm Analysis",
+    ],
+    color: "from-pink-400 to-rose-500",
+  },
+];
 
 export default function ServicesPage() {
   return (
@@ -74,134 +108,168 @@ export default function ServicesPage() {
         <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary-teal/10 via-primary-green-light/20 to-white" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary-teal/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          
+
           <div className="container mx-auto relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center max-w-3xl mx-auto"
-            >
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
-                Cardiac <span className="text-primary-teal">Diagnostic Services</span>
-              </h1>
-              <p className="text-xl text-secondary-gray-light leading-relaxed">
-                Offering the highest quality of diagnostic imaging with fully digitalized cardiac services.
-              </p>
-            </motion.div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative"
+              >
+                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/center2.jpeg"
+                    alt="Cardiac Diagnostic Services"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary-teal rounded-2xl opacity-20 blur-2xl" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center"
+              >
+                <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap">
+                  Cardiac <span className="text-primary-teal">Diagnostic Services</span>
+                </h1>
+                <p className="text-lg text-secondary-gray-light leading-relaxed">
+                  Offering the highest quality of diagnostic imaging with fully
+                  digitalized cardiac services.
+                </p>
+              </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Service Highlights */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-primary-green-light">
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-gray-50">
+          <div className="container mx-auto">
+            {/* Diagnostic Imaging Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100"
+              className="mb-12"
             >
-              <p className="text-sm font-semibold text-primary-teal uppercase tracking-[0.3em] mb-3">
-                Diagnostic Imaging
-              </p>
-              <h3 className="text-2xl font-bold text-secondary-gray mb-4">
-                Offering the highest quality of diagnostic imaging services
-              </h3>
-              <p className="text-secondary-gray-light mb-6">
-                Every study is performed on fully digital equipment, interpreted
-                by licensed cardiac specialists, and delivered through secure
-                paperless reporting for referring physicians.
-              </p>
-              <ul className="space-y-3 text-secondary-gray">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 w-2 h-2 rounded-full bg-primary-teal" />
-                  <span>Portal access for referring physicians to view reports online.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 w-2 h-2 rounded-full bg-primary-teal" />
-                  <span>Paperless reporting available upon request.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 w-2 h-2 rounded-full bg-primary-teal" />
-                  <span>Fast report turnaround times and walk-ins welcome.</span>
-                </li>
-              </ul>
+              <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-10 shadow-xl border-2 border-gray-100 hover:border-primary-teal/30 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-primary-teal" />
+                  <p className="text-sm font-semibold text-primary-teal uppercase tracking-[0.3em]">
+                    Diagnostic Imaging
+                  </p>
+                </div>
+                <h3 className="text-3xl font-bold text-secondary-gray mb-6">
+                  Offering the{" "}
+                  <span className="bg-gradient-to-r from-primary-teal to-red-500 bg-clip-text text-transparent">
+                    highest quality
+                  </span>{" "}
+                  of diagnostic imaging services
+                </h3>
+                <p className="text-secondary-gray-light mb-8 text-lg leading-relaxed">
+                  Every study is performed on fully digital equipment,
+                  interpreted by licensed cardiac specialists, and delivered
+                  through secure paperless reporting for referring physicians.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300"
+                  >
+                    <FileText className="w-8 h-8 text-primary-teal mb-3" />
+                    <h4 className="font-semibold text-secondary-gray mb-2">
+                      Portal Access
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light">
+                      Portal access for referring physicians to view reports
+                      online.
+                    </p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300"
+                  >
+                    <FileText className="w-8 h-8 text-primary-teal mb-3" />
+                    <h4 className="font-semibold text-secondary-gray mb-2">
+                      Paperless Reporting
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light">
+                      Paperless reporting available upon request for
+                      convenience.
+                    </p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300"
+                  >
+                    <Clock className="w-8 h-8 text-primary-teal mb-3" />
+                    <h4 className="font-semibold text-secondary-gray mb-2">
+                      Fast Turnaround
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light">
+                      Fast report turnaround times and walk-ins welcome.
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
             </motion.div>
 
+            {/* Cardiac Services Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100"
             >
-              <p className="text-sm font-semibold text-primary-teal uppercase tracking-[0.3em] mb-3">
-                Cardiac Services
-              </p>
-              <h3 className="text-2xl font-bold text-secondary-gray mb-4">
-                Fully digitized cardiac services
-              </h3>
-              <p className="text-secondary-gray-light mb-6">
-                Comprehensive diagnostic menu backed by experienced technologists and cardiologists.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-secondary-gray">
-                {[
-                  'Echocardiography',
-                  'ECG',
-                  'Holter Monitor',
-                  'Stress Echo',
-                  'Stress Test',
-                  'Ambulatory BP Monitor',
-                  'Fast report turnaround time',
-                  'Highly qualified licensed staff',
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2 text-sm">
-                    <span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary-teal" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
+              <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-10 shadow-xl border-2 border-gray-100 hover:border-primary-teal/30 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-primary-teal" />
+                  <p className="text-sm font-semibold text-primary-teal uppercase tracking-[0.3em]">
+                    Cardiac Services
+                  </p>
+                </div>
+                <h3 className="text-3xl font-bold text-secondary-gray mb-6">
+                  <span className="bg-gradient-to-r from-primary-teal to-red-500 bg-clip-text text-transparent">
+                    Fully digitized
+                  </span>{" "}
+                  cardiac services
+                </h3>
+                <p className="text-secondary-gray-light mb-8 text-lg leading-relaxed">
+                  Comprehensive diagnostic menu backed by experienced
+                  technologists and cardiologists.
+                </p>
 
-        {/* Services Grid */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
-                const Icon = service.icon
-                return (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                  {/* Cardiology Consultation */}
                   <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-50px' }}
-                    transition={{ delay: index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -10, scale: 1.02 }}
-                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group"
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
                   >
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-teal to-cyan-500 flex items-center justify-center mb-4">
+                      <Stethoscope className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-secondary-gray mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="text-secondary-gray-light mb-6 leading-relaxed">
-                      {service.description}
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Cardiology Consultation
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Expert cardiac assessment and personalized treatment planning by experienced cardiologists.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {["Full Cardiac Evaluation", "Treatment Planning", "Follow-up Care"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
-                          {feature}
+                          {item}
                         </li>
                       ))}
                     </ul>
                     <Link
                       href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
                     >
                       Learn More
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,11 +277,277 @@ export default function ServicesPage() {
                       </svg>
                     </Link>
                   </motion.div>
-                )
-              })}
-            </div>
+
+                  {/* Internal Medicine */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center mb-4">
+                      <Heart className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Internal Medicine (Cardiology)
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Specialized care for cardiovascular health and comprehensive disease management.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["Preventive Care", "Chronic Disease Management", "Risk Assessment"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Echocardiogram */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-4">
+                      <Activity className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Echocardiogram
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Precision ultrasound imaging to assess heart structure, function, and blood flow.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["Heart Structure Analysis", "Valve Function", "Blood Flow Assessment"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Stress Echocardiogram */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center mb-4">
+                      <TrendingUp className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Stress Echocardiogram
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Advanced imaging to evaluate heart function under controlled physical stress.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["Exercise Monitoring", "Real-time Imaging", "Stress Analysis"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Exercise Stress Test */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-4">
+                      <Activity className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Exercise Stress Test
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Monitored exercise testing to detect cardiac abnormalities and assess capacity.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["ECG Monitoring", "Blood Pressure Tracking", "Exercise Capacity"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Heart Monitor (Holter) */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center mb-4">
+                      <Clock className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Heart Monitor (Holter)
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      24-48 hour portable monitoring to track heart rhythm during daily activities.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["24-48 Hour Monitoring", "Rhythm Analysis", "Daily Activity Tracking"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Resting ECG */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-4">
+                      <FileText className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Resting ECG
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Quick, accurate measurement of heart's electrical activity and rhythm at rest.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["Quick Assessment", "Electrical Activity", "Heart Rhythm Analysis"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Ambulatory BP Monitor */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
+                      <Activity className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Ambulatory BP Monitor
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      24-hour blood pressure monitoring to assess hypertension and treatment efficacy.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["24-Hour Monitoring", "BP Variability Analysis", "Hypertension Assessment"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+
+                  {/* Spirometry */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mb-4">
+                      <Activity className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Spirometry
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      Pulmonary function testing to assess lung health and diagnose respiratory conditions.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {["Lung Function Test", "Airflow Measurement", "Respiratory Assessment"].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
+                    >
+                      Learn More
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
+
+
 
         {/* CTA Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-teal to-primary-teal-dark text-white">
@@ -243,6 +577,5 @@ export default function ServicesPage() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
-

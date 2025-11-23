@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 interface StatCardProps {
-  icon: React.ReactNode
-  title: string
-  description: string
-  index: number
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  index: number;
 }
 
 function StatCard({ icon, title, description, index }: StatCardProps) {
@@ -14,7 +14,7 @@ function StatCard({ icon, title, description, index }: StatCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.2, duration: 0.6 }}
       whileHover={{ y: -10, scale: 1.02 }}
       className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
@@ -23,15 +23,19 @@ function StatCard({ icon, title, description, index }: StatCardProps) {
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.2 + 0.3, type: 'spring', stiffness: 200 }}
-        className="w-16 h-16 bg-primary-green-light rounded-xl flex items-center justify-center mb-6"
+        transition={{
+          delay: index * 0.2 + 0.3,
+          type: "spring",
+          stiffness: 200,
+        }}
+        className="w-16 h-16 bg-gradient-to-br from-primary-teal to-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-500/30"
       >
         {icon}
       </motion.div>
       <h3 className="text-2xl font-bold text-secondary-gray mb-4">{title}</h3>
       <p className="text-secondary-gray-light leading-relaxed">{description}</p>
     </motion.div>
-  )
+  );
 }
 
 export default function Statistics() {
@@ -52,9 +56,9 @@ export default function Statistics() {
           />
         </svg>
       ),
-      title: '879 Cardiac Centers and Hospitals',
+      title: "879 Cardiac Centers and Hospitals",
       description:
-        'Access to a network of specialized cardiac care facilities and hospitals equipped with state-of-the-art technology for comprehensive heart health services.',
+        "Access to a network of specialized cardiac care facilities and hospitals equipped with state-of-the-art technology for comprehensive heart health services.",
     },
     {
       icon: (
@@ -72,9 +76,9 @@ export default function Statistics() {
           />
         </svg>
       ),
-      title: '2.5K+ Cardiac Specialists and Health Workers',
+      title: "2.5K+ Cardiac Specialists and Health Workers",
       description:
-        'Connect with experienced cardiologists, cardiac surgeons, and dedicated healthcare professionals committed to your heart health and recovery.',
+        "Connect with experienced cardiologists, cardiac surgeons, and dedicated healthcare professionals committed to your heart health and recovery.",
     },
     {
       icon: (
@@ -92,21 +96,24 @@ export default function Statistics() {
           />
         </svg>
       ),
-      title: '100+ Cardiac Health Services',
+      title: "100+ Cardiac Health Services",
       description:
-        'Comprehensive range of cardiac services including diagnostics, preventive care, treatment, rehabilitation, and ongoing heart health management.',
+        "Comprehensive range of cardiac services including diagnostics, preventive care, treatment, rehabilitation, and ongoing heart health management.",
     },
-  ]
+  ];
 
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-primary-green-light/20 overflow-hidden">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314B8A6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314B8A6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
-      
+
       <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -136,6 +143,5 @@ export default function Statistics() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

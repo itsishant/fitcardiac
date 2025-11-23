@@ -1,23 +1,24 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart } from "lucide-react";
 
 interface SplashScreenProps {
-  onComplete: () => void
+  onComplete: () => void;
 }
 
 export default function SplashScreen({ onComplete }: SplashScreenProps) {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(false)
-      setTimeout(onComplete, 500) // Wait for fade out animation
-    }, 5500) // 5.5 seconds total
+      setIsVisible(false);
+      setTimeout(onComplete, 500); // Wait for fade out animation
+    }, 4000); // 4 seconds total
 
-    return () => clearTimeout(timer)
-  }, [onComplete])
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
   return (
     <AnimatePresence>
@@ -28,74 +29,144 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-white"
         >
-          <div className="flex flex-col items-center justify-center">
-            {/* Heartbeat Animation */}
+          {/* Animated Background Circles */}
+          <div className="absolute inset-0 overflow-hidden">
             <motion.div
-              className="relative"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: [0.8, 1.2, 0.8, 1.2, 0.8] }}
-              transition={{
-                duration: 1,
-                repeat: 5,
-                ease: 'easeInOut',
-              }}
+              className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-teal/5 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            />
+            <motion.div
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.3, 0.15] }}
+              transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
+            />
+          </div>
+
+          <div className="flex flex-col items-center justify-center relative z-10">
+            {/* Animated Heart */}
+            <motion.div
+              className="relative mb-8"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <svg
-                width="120"
-                height="120"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-primary-teal"
+              {/* Heart Icon with Heartbeat Animation */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.15, 1],
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="flex items-center justify-center"
               >
-                <motion.path
-                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                  fill="currentColor"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
-                />
-              </svg>
+                <Heart className="w-32 h-32 text-red-500 fill-red-500" />
+              </motion.div>
+
+              {/* Pulse Rings */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.4, 1.4],
+                  opacity: [0.8, 0.4, 0],
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                }}
+              >
+                <div className="w-40 h-40 rounded-full border-2 border-red-500" />
+              </motion.div>
+
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.4, 1.4],
+                  opacity: [0.6, 0.3, 0],
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                  delay: 0.3,
+                }}
+              >
+                <div className="w-40 h-40 rounded-full border-2 border-primary-teal" />
+              </motion.div>
+
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.4, 1.4],
+                  opacity: [0.4, 0.2, 0],
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                  delay: 0.6,
+                }}
+              >
+                <div className="w-40 h-40 rounded-full border-2 border-red-500/50" />
+              </motion.div>
             </motion.div>
 
             {/* Loading Text */}
             <motion.div
-              className="mt-8 text-center"
+              className="text-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <h2 className="text-2xl font-bold text-secondary-gray">
+              <h2 className="text-6xl font-bold text-secondary-gray mb-2">
                 FIT CARDIAC
               </h2>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-secondary-gray-light">
-                Diagnostic Centre
+              <p className="text-2xl uppercase tracking-[0.2em] text-primary-teal font-semibold">
+                DIAGNOSTIC CENTRE
               </p>
-              <p className="mt-1 text-[10px] text-secondary-gray-light">
+              <motion.p
+                className="mt-3 text-xl text-secondary-gray-light italic"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
                 Where Every Heartbeat Matters
-              </p>
+              </motion.p>
             </motion.div>
 
-            {/* Pulse Effect */}
+            {/* Loading indicator */}
             <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              initial={{ scale: 1, opacity: 0.3 }}
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.3, 0, 0.3],
-              }}
-              transition={{
-                duration: 1,
-                repeat: 5,
-                ease: 'easeOut',
-              }}
+              className="mt-8 flex gap-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
             >
-              <div className="w-32 h-32 rounded-full bg-primary-teal" />
+              {[0, 1, 2].map((index) => (
+                <motion.div
+                  key={index}
+                  className="w-4 h-4 rounded-full bg-red-500"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [0.3, 1, 0.3],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: index * 0.2,
+                  }}
+                />
+              ))}
             </motion.div>
           </div>
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-

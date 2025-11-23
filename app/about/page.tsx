@@ -1,34 +1,91 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import Image from 'next/image'
-import { Heart, Target, Award, Users } from 'lucide-react'
-import MissionVision from '@/components/MissionVision'
+import { motion } from "framer-motion";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import HeartDiseaseStats from "@/components/HeartDiseaseStats";
+import Image from "next/image";
+import {
+  Heart,
+  Target,
+  Award,
+  Users,
+  Shield,
+  Clock,
+  Activity,
+  AlertCircle,
+} from "lucide-react";
+import MissionVision from "@/components/MissionVision";
 
 const values = [
   {
     icon: Heart,
-    title: 'Compassionate Care',
-    description: 'We treat every patient with empathy, respect, and personalized attention.',
+    title: "Compassionate Care",
+    description:
+      "We treat every patient with empathy, respect, and personalized attention.",
+    color: "from-red-500 to-pink-500",
   },
   {
     icon: Target,
-    title: 'Excellence',
-    description: 'We strive for the highest standards in cardiac care and patient outcomes.',
+    title: "Excellence",
+    description:
+      "We strive for the highest standards in cardiac care and patient outcomes.",
+    color: "from-blue-500 to-cyan-500",
   },
   {
     icon: Award,
-    title: 'Innovation',
-    description: 'We embrace cutting-edge technology and treatment methods.',
+    title: "Innovation",
+    description: "We embrace cutting-edge technology and treatment methods.",
+    color: "from-purple-500 to-indigo-500",
   },
   {
     icon: Users,
-    title: 'Collaboration',
-    description: 'We work together as a team to provide comprehensive cardiac care.',
+    title: "Collaboration",
+    description:
+      "We work together as a team to provide comprehensive cardiac care.",
+    color: "from-green-500 to-emerald-500",
   },
-]
+];
+
+const quickFacts = [
+  {
+    icon: Shield,
+    title: "Fully Digital",
+    value: "100%",
+    description:
+      "All cardiac imaging is fully digitalized for accuracy and speed",
+  },
+  {
+    icon: Clock,
+    title: "Fast Reports",
+    value: "24-48hrs",
+    description: "Quick turnaround time for diagnostic reports",
+  },
+  {
+    icon: Activity,
+    title: "Licensed Staff",
+    value: "Expert",
+    description: "Highly qualified and experienced cardiac technicians",
+  },
+  {
+    icon: AlertCircle,
+    title: "Walk-ins Welcome",
+    value: "Always",
+    description: "Flexible scheduling with walk-in appointments available",
+  },
+  {
+    icon: Shield,
+    title: "Comprehensive Diagnostics",
+    value: "Full",
+    description: "Advanced diagnostic tools including ECG, echocardiography, and cardiac MRI for accurate assessment",
+  },
+  {
+    icon: Activity,
+    title: "Advanced Cardiac Care",
+    value: "Care",
+    description: "State-of-the-art cardiac treatment with cutting-edge technology and personalized care plans",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -39,7 +96,7 @@ export default function AboutPage() {
         <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary-teal/10 via-primary-green-light/20 to-white" />
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary-teal/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          
+
           <div className="container mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -47,11 +104,12 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap">
                 About <span className="text-primary-teal">FIT CARDIAC DIAGNOSTIC CENTRE</span>
               </h1>
               <p className="text-xl text-secondary-gray-light leading-relaxed">
-                A dedicated cardiac diagnostic centre in Canada, where every heartbeat matters.
+                A dedicated cardiac diagnostic centre in Canada, where every
+                heartbeat matters.
               </p>
             </motion.div>
           </div>
@@ -70,7 +128,7 @@ export default function AboutPage() {
               >
                 <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&h=600&fit=crop"
+                    src="/center1.jpeg"
                     alt="Cardiac care team"
                     fill
                     className="object-cover"
@@ -86,29 +144,100 @@ export default function AboutPage() {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <h2 className="text-4xl font-bold text-secondary-gray">Our Centre</h2>
+                <h2 className="text-4xl font-bold text-secondary-gray">
+                  Our Centre
+                </h2>
                 <p className="text-lg text-secondary-gray-light leading-relaxed">
-                  FIT CARDIAC DIAGNOSTIC CENTRE is focused exclusively on cardiac diagnostics and stress testing. We provide the highest quality of diagnostic imaging services in a comfortable, patient‑centred environment.
+                  FIT CARDIAC DIAGNOSTIC CENTRE is focused exclusively on
+                  cardiac diagnostics and stress testing. We provide the highest
+                  quality of diagnostic imaging services in a comfortable,
+                  patient‑centred environment.
                 </p>
                 <p className="text-lg text-secondary-gray-light leading-relaxed">
-                  Our fully digital cardiac services include Echocardiography, ECG, Holter monitoring, Stress Echo, Stress Testing, and Ambulatory Blood Pressure monitoring. Referring physicians can securely access reports through our online portal, with paperless reporting available on request.
+                  Our fully digital cardiac services include Echocardiography,
+                  ECG, Holter monitoring, Stress Echo, and Stress Testing. Referring physicians can
+                  securely access reports through our online portal, with
+                  paperless reporting available on request.
                 </p>
                 <p className="text-lg text-secondary-gray-light leading-relaxed">
-                  With fast report turnaround times, highly qualified licensed staff, and walk‑ins welcome, we make it easier for Canadians to get the cardiac answers they need, when they need them.
+                  With fast report turnaround times, highly qualified licensed
+                  staff, and walk‑ins welcome, we make it easier for Canadians
+                  to get the cardiac answers they need, when they need them.
                 </p>
               </motion.div>
             </div>
           </div>
         </section>
 
+
+
         <MissionVision />
+
+        {/* Quick Facts Section */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-medical-red-light to-medical-blue-light">
+          <div className="container mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-4">
+                Why Choose{" "}
+                <span className="text-primary-teal">FIT CARDIAC DIAGNOSTIC CENTRE</span>
+              </h2>
+              <p className="text-lg text-secondary-gray-light max-w-2xl mx-auto">
+                Trusted cardiac diagnostics with cutting-edge technology
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {quickFacts.map((fact, index) => {
+                const Icon = fact.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="bg-white rounded-2xl p-6 shadow-card hover:shadow-medical transition-all duration-300"
+                  >
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-14 h-14 bg-gradient-to-br from-primary-teal to-primary-teal-dark rounded-full flex items-center justify-center mb-4">
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+                      <div className="text-3xl font-bold text-primary-teal mb-2">
+                        {fact.value}
+                      </div>
+                      <h3 className="text-lg font-bold text-secondary-gray mb-2">
+                        {fact.title}
+                      </h3>
+                      <p className="text-sm text-secondary-gray-light">
+                        {fact.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Heart Disease Statistics Section */}
+        <HeartDiseaseStats />
 
         {/* Values Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-primary-green-light/20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314B8A6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }} />
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314B8A6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}
+            />
           </div>
 
           <div className="container mx-auto relative z-10">
@@ -129,18 +258,20 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => {
-                const Icon = value.icon
+                const Icon = value.icon;
                 return (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-50px' }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -10 }}
-                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center"
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 text-center group"
                   >
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary-teal to-primary-teal-dark rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${value.color} rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-xl font-bold text-secondary-gray mb-3">
@@ -150,7 +281,7 @@ export default function AboutPage() {
                       {value.description}
                     </p>
                   </motion.div>
-                )
+                );
               })}
             </div>
           </div>
@@ -161,10 +292,10 @@ export default function AboutPage() {
           <div className="container mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { number: '879+', label: 'Healthcare Facilities' },
-                { number: '2.5K+', label: 'Specialists' },
-                { number: '100K+', label: 'Patients Treated' },
-                { number: '25+', label: 'Years of Excellence' },
+                { number: "879+", label: "Healthcare Facilities" },
+                { number: "2.5K+", label: "Specialists" },
+                { number: "100K+", label: "Patients Treated" },
+                { number: "25+", label: "Years of Excellence" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -186,6 +317,5 @@ export default function AboutPage() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
-
