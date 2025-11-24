@@ -4,9 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,6 +29,18 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMoreOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -51,22 +65,22 @@ export default function Header() {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <Link href="/" className="flex items-center gap-3">
-<div className="relative w-20 h-20 md:w-27 md:h-27">
-  <Image
-    src="/logo.jpeg"
-    alt="FIT CARDIAC DIAGNOSTIC CENTRE logo"
-    fill
-    className="object-contain"
-    priority
-  />
-</div>
+              <div className="relative w-20 h-20 md:w-27 md:h-27">
+                <Image
+                  src="/logo.jpeg"
+                  alt="FIT CARDIAC DIAGNOSTIC CENTRE logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
               <div className="flex flex-col leading-tight">
                 <span className="text-xs ml-7 md:text-base font-sans font-semibold  text-secondary-gray uppercase">
                   Fit Cardiac
                 </span>
                 <span className="text-[10px] md:text-base font-semibold text-primary-teal uppercase">
                   Diagnostic Centre
-                </span>                
+                </span>
               </div>
             </Link>
           </motion.div>
@@ -143,7 +157,7 @@ export default function Header() {
                       onClick={() => setIsMoreOpen(false)}
                     >
                       Contact
-                    </Link>                   
+                    </Link>
                     <Link
                       href="/faq"
                       className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors"
@@ -157,12 +171,12 @@ export default function Header() {
             </motion.div>
           </div>
 
-          {/* Contact CTA */}
+          {/* Contact CTA - Desktop */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="hidden sm:flex items-center"
+            className="hidden lg:flex items-center"
           >
             <Link
               href="tel:+14165551234"
@@ -171,7 +185,85 @@ export default function Header() {
               Call: +1 (613) 676-1191
             </Link>
           </motion.div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-secondary-gray hover:text-primary-teal transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </motion.button>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <div className="py-4 space-y-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+
+                {/* Mobile More Section */}
+                <div className="border-t border-gray-200 pt-2 mt-2">
+                  <Link
+                    href="/referral"
+                    className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg font-semibold"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Physician Referral
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Contact
+                  </Link>
+                  <Link
+                    href="/faq"
+                    className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    FAQ
+                  </Link>
+                </div>
+
+                {/* Mobile Contact */}
+                <div className="border-t border-gray-200 pt-2 mt-2">
+                  <Link
+                    href="tel:+16136761191"
+                    className="block px-4 py-3 text-base text-primary-teal hover:bg-primary-green-light transition-colors rounded-lg font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    📞 Call: +1 (613) 676-1191
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </motion.header>
   );

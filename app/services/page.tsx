@@ -117,11 +117,11 @@ export default function ServicesPage() {
                 transition={{ duration: 0.8 }}
                 className="w-full"
               >
-                <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap text-center">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-secondary-gray mb-4 sm:mb-6 text-center px-2">
                   Cardiac{" "}
                   <span className="text-primary-teal">Diagnostic Services</span>
                 </h1>
-                <p className="text-lg text-secondary-gray-light leading-relaxed text-center">
+                <p className="text-base sm:text-lg text-secondary-gray-light leading-relaxed text-center px-4">
                   Offering the highest quality of diagnostic imaging with fully
                   digitalized cardiac services.
                 </p>
@@ -259,7 +259,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    
                   </motion.div>
 
                   {/* Internal Medicine */}
@@ -292,7 +291,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                  
                   </motion.div>
 
                   {/* Echocardiogram */}
@@ -325,7 +323,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    
                   </motion.div>
 
                   {/* Stress Echocardiogram */}
@@ -358,7 +355,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                  
                   </motion.div>
 
                   {/* Exercise Stress Test */}
@@ -391,7 +387,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                  
                   </motion.div>
 
                   {/* Heart Monitor (Holter) */}
@@ -424,7 +419,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                 
                   </motion.div>
 
                   {/* Resting ECG */}
@@ -457,7 +451,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                
                   </motion.div>
 
                   {/* Ambulatory BP Monitor */}
@@ -490,7 +483,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    
                   </motion.div>
 
                   {/* Spirometry */}
@@ -523,7 +515,6 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                  
                   </motion.div>
                 </div>
               </div>

@@ -92,13 +92,13 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-secondary-gray mb-4 sm:mb-6 px-2">
                 About{" "}
                 <span className="text-primary-teal">
                   FIT CARDIAC DIAGNOSTIC CENTRE
                 </span>
               </h1>
-              <p className="text-xl text-secondary-gray-light leading-relaxed">
+              <p className="text-lg sm:text-xl text-secondary-gray-light leading-relaxed px-4">
                 A dedicated cardiac diagnostic centre in Canada, where every
                 heartbeat matters.
               </p>

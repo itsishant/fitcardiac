@@ -77,10 +77,10 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-secondary-gray mb-4 sm:mb-6 px-2">
                 Contact <span className="text-primary-teal">Us</span>
               </h1>
-              <p className="text-xl text-secondary-gray-light leading-relaxed">
+              <p className="text-lg sm:text-xl text-secondary-gray-light leading-relaxed px-4">
                 Get in touch with our team. We're here to help with all your
                 cardiac care needs.
               </p>

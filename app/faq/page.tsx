@@ -52,11 +52,11 @@ export default function FAQPage() {
                   <HelpCircle className="w-10 h-10 text-primary-teal" />
                 </div>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-secondary-gray mb-4 sm:mb-6 px-2">
                 Frequently Asked{" "}
                 <span className="text-primary-teal">Questions</span>
               </h1>
-              <p className="text-xl text-secondary-gray-light leading-relaxed">
+              <p className="text-lg sm:text-xl text-secondary-gray-light leading-relaxed px-4">
                 Find answers to common questions about our services and cardiac
                 care
               </p>
@@ -81,9 +81,9 @@ export default function FAQPage() {
                   >
                     <button
                       onClick={() => setOpenQuestion(isOpen ? null : index)}
-                      className="w-full px-6 py-4 bg-primary-green-light/50 flex items-center justify-between hover:bg-primary-green-light transition-colors"
+                      className="w-full px-4 sm:px-6 py-4 bg-primary-green-light/50 flex items-center justify-between hover:bg-primary-green-light transition-colors"
                     >
-                      <h2 className="text-2xl font-bold text-secondary-gray text-left">
+                      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-secondary-gray text-left pr-2">
                         {faq.question}
                       </h2>
                       <ChevronDown

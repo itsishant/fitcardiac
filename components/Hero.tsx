@@ -87,9 +87,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="pl-4"
+              className="pl-2 md:pl-4"
             >
-              <span className="text-2xl md:text-3xl font-bold tracking-wide">
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">
                 <span className="text-secondary-gray">FIT CARDIAC </span>
                 <span className="text-primary-teal">DIAGNOSTIC CENTRE</span>
               </span>
@@ -99,7 +99,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
             >
               <span className="bg-gradient-to-r from-primary-teal to-red-500 bg-clip-text text-transparent">
                 Take care of your
@@ -112,7 +112,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-lg text-secondary-gray-light leading-relaxed max-w-xl"
+              className="text-base sm:text-lg text-secondary-gray-light leading-relaxed max-w-xl"
             >
               Cardiac Services: Offering the highest quality of diagnostic
               imaging services in Canada, delivered by highly qualified licensed
@@ -135,7 +135,7 @@ export default function Hero() {
                       document.getElementById("why-choose-section");
                     section?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="inline-flex justify-center items-center gap-2 bg-red-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                  className="inline-flex justify-center items-center gap-2 bg-red-600 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer w-full sm:w-auto"
                 >
                   <HeartPulse className="w-6 h-6 animate-heartbeat" />
                   Get Started
@@ -203,10 +203,10 @@ export default function Hero() {
                   {/* Main Content - Multiple Scrollable Sections */}
                   <div className="relative z-10 flex flex-row items-center justify-start h-full w-full snap-x snap-mandatory">
                     {/* Section 1 - Heartbeat Chart */}
-                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-10 px-8">
+                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-10 px-4 sm:px-8">
                       <motion.div className="absolute down-0 left-0 right-0 mt-52 translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm py-3">
                         <Marquee speed={60} gradient={false} direction="right">
-                          <span className="text-black font-bold font-sans text-lg mx-10 tracking-wide ">
+                          <span className="text-black font-bold font-sans text-sm sm:text-base md:text-lg mx-10 tracking-wide ">
                             FIT CARDIAC DIAGNOSTIC CENTRE —
                             <span className="text-neutral-300 font-bold font-sans">
                               <></> WHERE EVERY HEARTBEAT MATTERS
@@ -217,12 +217,14 @@ export default function Hero() {
                     </div>
 
                     {/* Section 2 - Heart Rate Info */}
-                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-8 px-8">
+                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-6 sm:gap-8 px-4 sm:px-8">
                       <div className="text-center text-white space-y-4">
-                        <h2 className="text-3xl font-bold">
+                        <h2 className="text-2xl sm:text-3xl font-bold">
                           Heart Rate Monitor
                         </h2>
-                        <p className="text-lg text-white/80">Average: 72 BPM</p>
+                        <p className="text-base sm:text-lg text-white/80">
+                          Average: 72 BPM
+                        </p>
                         <div className="flex justify-center gap-4">
                           <div className="flex flex-col items-center">
                             <span className="text-2xl font-bold text-green-300">
@@ -255,9 +257,11 @@ export default function Hero() {
                     </div>
 
                     {/* Section 3 - Wellness Info */}
-                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-6 px-8">
-                      <div className="text-center text-white space-y-6">
-                        <h2 className="text-3xl font-bold">Cardiac Wellness</h2>
+                    <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-4 sm:gap-6 px-4 sm:px-8">
+                      <div className="text-center text-white space-y-4 sm:space-y-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold">
+                          Cardiac Wellness
+                        </h2>
                         <div className="space-y-4">
                           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
                             <p className="text-white/80 text-sm mb-2">
@@ -302,10 +306,10 @@ export default function Hero() {
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={handleScrollRight}
-                    className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 z-30 cursor-pointer font-bold text-2xl shadow-lg hover:shadow-xl"
+                    className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 z-30 cursor-pointer font-bold text-2xl shadow-lg hover:shadow-xl"
                     title="Next Section"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.button>
                 )}
 
@@ -318,10 +322,10 @@ export default function Hero() {
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={handleScrollLeft}
-                    className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 z-30 cursor-pointer font-bold text-2xl shadow-lg hover:shadow-xl"
+                    className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-all duration-300 z-30 cursor-pointer font-bold text-2xl shadow-lg hover:shadow-xl"
                     title="Previous Section"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.button>
                 )}
 

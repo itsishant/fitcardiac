@@ -56,10 +56,10 @@ export default function FacilitiesPage() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-secondary-gray mb-4 sm:mb-6 px-2">
                 Our <span className="text-primary-teal">Facilities</span>
               </h1>
-              <p className="text-xl text-secondary-gray-light leading-relaxed">
+              <p className="text-lg sm:text-xl text-secondary-gray-light leading-relaxed px-4">
                 State-of-the-art cardiac care facilities equipped with the
                 latest technology and staffed by expert teams
               </p>
