@@ -110,34 +110,18 @@ export default function ServicesPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary-teal/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
           <div className="container mx-auto relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="relative"
-              >
-                <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-2xl">
-                  <Image
-                    src="/center2.jpeg"
-                    alt="Cardiac Diagnostic Services"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary-teal rounded-2xl opacity-20 blur-2xl" />
-              </motion.div>
-
+            <div className="flex flex-col items-center justify-center text-center gap-6 w-full">
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-center"
+                className="w-full"
               >
-                <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap">
-                  Cardiac <span className="text-primary-teal">Diagnostic Services</span>
+                <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap text-center">
+                  Cardiac{" "}
+                  <span className="text-primary-teal">Diagnostic Services</span>
                 </h1>
-                <p className="text-lg text-secondary-gray-light leading-relaxed">
+                <p className="text-lg text-secondary-gray-light leading-relaxed text-center">
                   Offering the highest quality of diagnostic imaging with fully
                   digitalized cardiac services.
                 </p>
@@ -257,25 +241,25 @@ export default function ServicesPage() {
                       Cardiology Consultation
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Expert cardiac assessment and personalized treatment planning by experienced cardiologists.
+                      Expert cardiac assessment and personalized treatment
+                      planning by experienced cardiologists.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Full Cardiac Evaluation", "Treatment Planning", "Follow-up Care"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Full Cardiac Evaluation",
+                        "Treatment Planning",
+                        "Follow-up Care",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                    
                   </motion.div>
 
                   {/* Internal Medicine */}
@@ -290,25 +274,25 @@ export default function ServicesPage() {
                       Internal Medicine (Cardiology)
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Specialized care for cardiovascular health and comprehensive disease management.
+                      Specialized care for cardiovascular health and
+                      comprehensive disease management.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Preventive Care", "Chronic Disease Management", "Risk Assessment"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Preventive Care",
+                        "Chronic Disease Management",
+                        "Risk Assessment",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                  
                   </motion.div>
 
                   {/* Echocardiogram */}
@@ -323,25 +307,25 @@ export default function ServicesPage() {
                       Echocardiogram
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Precision ultrasound imaging to assess heart structure, function, and blood flow.
+                      Precision ultrasound imaging to assess heart structure,
+                      function, and blood flow.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Heart Structure Analysis", "Valve Function", "Blood Flow Assessment"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Heart Structure Analysis",
+                        "Valve Function",
+                        "Blood Flow Assessment",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                    
                   </motion.div>
 
                   {/* Stress Echocardiogram */}
@@ -356,25 +340,25 @@ export default function ServicesPage() {
                       Stress Echocardiogram
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Advanced imaging to evaluate heart function under controlled physical stress.
+                      Advanced imaging to evaluate heart function under
+                      controlled physical stress.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Exercise Monitoring", "Real-time Imaging", "Stress Analysis"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Exercise Monitoring",
+                        "Real-time Imaging",
+                        "Stress Analysis",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                  
                   </motion.div>
 
                   {/* Exercise Stress Test */}
@@ -389,25 +373,25 @@ export default function ServicesPage() {
                       Exercise Stress Test
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Monitored exercise testing to detect cardiac abnormalities and assess capacity.
+                      Monitored exercise testing to detect cardiac abnormalities
+                      and assess capacity.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["ECG Monitoring", "Blood Pressure Tracking", "Exercise Capacity"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "ECG Monitoring",
+                        "Blood Pressure Tracking",
+                        "Exercise Capacity",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                  
                   </motion.div>
 
                   {/* Heart Monitor (Holter) */}
@@ -422,25 +406,25 @@ export default function ServicesPage() {
                       Heart Monitor (Holter)
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      24-48 hour portable monitoring to track heart rhythm during daily activities.
+                      24-48 hour portable monitoring to track heart rhythm
+                      during daily activities.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["24-48 Hour Monitoring", "Rhythm Analysis", "Daily Activity Tracking"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "24-48 Hour Monitoring",
+                        "Rhythm Analysis",
+                        "Daily Activity Tracking",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                 
                   </motion.div>
 
                   {/* Resting ECG */}
@@ -455,25 +439,25 @@ export default function ServicesPage() {
                       Resting ECG
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Quick, accurate measurement of heart's electrical activity and rhythm at rest.
+                      Quick, accurate measurement of heart's electrical activity
+                      and rhythm at rest.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Quick Assessment", "Electrical Activity", "Heart Rhythm Analysis"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Quick Assessment",
+                        "Electrical Activity",
+                        "Heart Rhythm Analysis",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                
                   </motion.div>
 
                   {/* Ambulatory BP Monitor */}
@@ -488,25 +472,25 @@ export default function ServicesPage() {
                       Ambulatory BP Monitor
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      24-hour blood pressure monitoring to assess hypertension and treatment efficacy.
+                      24-hour blood pressure monitoring to assess hypertension
+                      and treatment efficacy.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["24-Hour Monitoring", "BP Variability Analysis", "Hypertension Assessment"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "24-Hour Monitoring",
+                        "BP Variability Analysis",
+                        "Hypertension Assessment",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                    
                   </motion.div>
 
                   {/* Spirometry */}
@@ -521,33 +505,31 @@ export default function ServicesPage() {
                       Spirometry
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Pulmonary function testing to assess lung health and diagnose respiratory conditions.
+                      Pulmonary function testing to assess lung health and
+                      diagnose respiratory conditions.
                     </p>
                     <ul className="space-y-2 mb-6">
-                      {["Lung Function Test", "Airflow Measurement", "Respiratory Assessment"].map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-secondary-gray-light">
+                      {[
+                        "Lung Function Test",
+                        "Airflow Measurement",
+                        "Respiratory Assessment",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
                           <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className="text-primary-teal font-semibold hover:text-primary-teal-dark transition-colors inline-flex items-center gap-2 text-sm mt-auto"
-                    >
-                      Learn More
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                  
                   </motion.div>
                 </div>
               </div>
             </motion.div>
           </div>
         </section>
-
-
 
         {/* CTA Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-teal to-primary-teal-dark text-white">
@@ -566,7 +548,7 @@ export default function ServicesPage() {
                 Contact us today to learn more about our cardiac care services
               </p>
               <Link
-                href="/contact"
+                href="/referral"
                 className="inline-block bg-white text-primary-teal px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-green-light transition-all duration-200 shadow-xl"
               >
                 Get Started

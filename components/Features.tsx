@@ -12,7 +12,7 @@ import {
 
 const features = [
   {
-    icon: Stethoscope,
+    icon: Heart,
     title: "Cardiology Consultation",
     description:
       "Expert consultation with experienced cardiologists for comprehensive cardiac assessment and treatment planning.",
@@ -26,39 +26,46 @@ const features = [
     color: "from-blue-400 to-cyan-500",
   },
   {
-    icon: Activity,
+    icon: Heart,
     title: "Echocardiogram",
     description:
       "Advanced ultrasound imaging of your heart to assess structure, function, and blood flow patterns.",
     color: "from-green-400 to-emerald-500",
   },
   {
-    icon: Activity,
+    icon: Heart,
     title: "Stress Echocardiogram",
     description:
       "Comprehensive cardiac imaging during exercise to evaluate heart function under physical stress.",
     color: "from-purple-400 to-indigo-500",
   },
   {
-    icon: Activity,
+    icon: Heart,
     title: "Exercise Stress Test",
     description:
       "Monitor heart activity and blood pressure during controlled exercise to detect cardiac abnormalities.",
     color: "from-orange-400 to-red-500",
   },
   {
-    icon: Clock,
+    icon: Heart,
     title: "Heart Monitor (Holter)",
     description:
       "Portable 24-hour ECG monitoring to track heart rhythm and detect irregular heartbeats.",
     color: "from-teal-400 to-cyan-500",
   },
   {
-    icon: Activity,
+    icon: Heart,
     title: "Resting ECG",
     description:
       "Quick and accurate electrocardiogram to measure electrical activity and rhythm of your heart.",
     color: "from-pink-400 to-rose-500",
+  },
+  {
+    icon: Heart,
+    title: "Ambulatory BP Monitor",
+    description:
+      "24-hour blood pressure monitoring to assess hypertension and treatment efficacy throughout your daily activities.",
+    color: "from-indigo-400 to-purple-500",
   },
 ];
 

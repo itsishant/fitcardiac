@@ -142,25 +142,45 @@ export default function HeartDiseaseStats() {
             </motion.div>
           ))}
         </div>
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+  className="mt-12 rounded-3xl p-8 
+             bg-gradient-to-br from-teal-200 to-cyan-200  
+             border border-blue-300/30 
+             shadow-lg shadow-blue-200/40 
+             text-secondary-gray"
+>
+  <h4 className="text-2xl text-center font-extrabold mb-8 tracking-wide text-secondary-gray">
+    Why These Numbers Matter for FIT CARDIAC DIAGNOSTIC CENTRE
+  </h4>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 bg-primary-green-light rounded-3xl p-8 border border-primary-teal/10 shadow-inner text-secondary-gray"
-        >
-          <h4 className="text-xl font-bold mb-3 text-secondary-gray">
-            Why these numbers matter for FIT CARDIAC DIAGNOSTIC CENTRE
-          </h4>
-          <p className="text-secondary-gray-light">
-            Early diagnostics save lives. Our fully digital echocardiography,
-            ECG, Holter monitoring, stress echo, stress testing, and ambulatory
-            BP monitoring services help Canadian physicians detect changes
-            earlier, manage risk factors, and keep patients on the path to
-            better heart health.
-          </p>
-        </motion.div>
+  {/* Infographic Bullet Points */}
+  <div className="space-y-4 mb-6 justify-center text-neutral-900 text-[1.05rem]">
+    <div className="flex gap-3 justify-center">
+      
+      <p><b>Early detection leads to better outcomes</b>—faster intervention reduces long-term cardiac risk.</p>
+    </div>
+    
+    <div className="flex gap-3 justify-center"> 
+      
+      <p><b>Digital echo, ECG, Holter & stress tests</b>—give physicians clearer, faster diagnostic insights.</p>
+    </div>
+
+    <div className="flex gap-3 justify-center"> 
+      <p><b>ABPM & continuous monitoring</b>—help track risk factors before they become severe.</p>
+    </div>
+  </div>
+
+  {/* Mini Metrics Row */}
+  
+</motion.div>
+
+
+
+
       </div>
     </section>
   )

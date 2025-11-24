@@ -73,18 +73,6 @@ const quickFacts = [
     value: "Always",
     description: "Flexible scheduling with walk-in appointments available",
   },
-  {
-    icon: Shield,
-    title: "Comprehensive Diagnostics",
-    value: "Full",
-    description: "Advanced diagnostic tools including ECG, echocardiography, and cardiac MRI for accurate assessment",
-  },
-  {
-    icon: Activity,
-    title: "Advanced Cardiac Care",
-    value: "Care",
-    description: "State-of-the-art cardiac treatment with cutting-edge technology and personalized care plans",
-  },
 ];
 
 export default function AboutPage() {
@@ -104,8 +92,11 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 whitespace-nowrap">
-                About <span className="text-primary-teal">FIT CARDIAC DIAGNOSTIC CENTRE</span>
+              <h1 className="text-5xl md:text-6xl font-bold text-secondary-gray mb-6">
+                About{" "}
+                <span className="text-primary-teal">
+                  FIT CARDIAC DIAGNOSTIC CENTRE
+                </span>
               </h1>
               <p className="text-xl text-secondary-gray-light leading-relaxed">
                 A dedicated cardiac diagnostic centre in Canada, where every
@@ -115,9 +106,29 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <MissionVision />
+
         {/* Story Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
           <div className="container mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center max-w-3xl mx-auto mb-12"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 leading-tight">
+                Driven by <span className="text-primary-teal">Excellence</span>{" "}
+                in Cardiac Care
+              </h2>
+              <p className="text-secondary-gray-light text-lg leading-relaxed">
+                At FIT CARDIAC DIAGNOSTIC CENTRE, we combine advanced technology
+                with compassionate care to ensure the best possible outcomes for
+                every patient.
+              </p>
+            </motion.div>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -155,9 +166,9 @@ export default function AboutPage() {
                 </p>
                 <p className="text-lg text-secondary-gray-light leading-relaxed">
                   Our fully digital cardiac services include Echocardiography,
-                  ECG, Holter monitoring, Stress Echo, and Stress Testing. Referring physicians can
-                  securely access reports through our online portal, with
-                  paperless reporting available on request.
+                  ECG, Holter monitoring, Stress Echo, and Stress Testing.
+                  Referring physicians can securely access reports through our
+                  online portal, with paperless reporting available on request.
                 </p>
                 <p className="text-lg text-secondary-gray-light leading-relaxed">
                   With fast report turnaround times, highly qualified licensed
@@ -168,66 +179,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
-
-
-        <MissionVision />
-
-        {/* Quick Facts Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-medical-red-light to-medical-blue-light">
-          <div className="container mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-4">
-                Why Choose{" "}
-                <span className="text-primary-teal">FIT CARDIAC DIAGNOSTIC CENTRE</span>
-              </h2>
-              <p className="text-lg text-secondary-gray-light max-w-2xl mx-auto">
-                Trusted cardiac diagnostics with cutting-edge technology
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {quickFacts.map((fact, index) => {
-                const Icon = fact.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    className="bg-white rounded-2xl p-6 shadow-card hover:shadow-medical transition-all duration-300"
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary-teal to-primary-teal-dark rounded-full flex items-center justify-center mb-4">
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-                      <div className="text-3xl font-bold text-primary-teal mb-2">
-                        {fact.value}
-                      </div>
-                      <h3 className="text-lg font-bold text-secondary-gray mb-2">
-                        {fact.title}
-                      </h3>
-                      <p className="text-sm text-secondary-gray-light">
-                        {fact.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Heart Disease Statistics Section */}
-        <HeartDiseaseStats />
 
         {/* Values Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-primary-green-light/20 relative overflow-hidden">
@@ -292,10 +243,10 @@ export default function AboutPage() {
           <div className="container mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { number: "879+", label: "Healthcare Facilities" },
-                { number: "2.5K+", label: "Specialists" },
-                { number: "100K+", label: "Patients Treated" },
-                { number: "25+", label: "Years of Excellence" },
+                { number: "8+", label: "Healthcare Facilities" },
+                { number: "10+", label: "Specialists" },
+                { number: "100+", label: "Patients Treated" },
+                { number: "20+", label: "Years of Excellence" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}

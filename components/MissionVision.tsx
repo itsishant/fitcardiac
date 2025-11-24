@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { Target, Eye, ArrowRight } from 'lucide-react'
+import { motion } from "framer-motion";
+import { Target, Eye, ArrowRight } from "lucide-react";
 
 export default function MissionVision() {
   return (
@@ -13,23 +13,7 @@ export default function MissionVision() {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-20"
-        >
-          <span className="inline-block py-1 px-3 rounded-full bg-primary-teal/10 text-primary-teal text-sm font-semibold tracking-wide mb-4">
-            OUR PURPOSE
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-secondary-gray mb-6 leading-tight">
-            Driven by <span className="text-primary-teal">Excellence</span> in Cardiac Care
-          </h2>
-          <p className="text-secondary-gray-light text-lg leading-relaxed">
-            At FIT CARDIAC DIAGNOSTIC CENTRE, we combine advanced technology with compassionate care to ensure the best possible outcomes for every patient.
-          </p>
-        </motion.div>
+      
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Mission Card */}
@@ -53,7 +37,8 @@ export default function MissionVision() {
               </h3>
 
               <p className="text-secondary-gray-light text-lg leading-relaxed">
-                Offering high-quality cardiovascular care experiences, including consultations and diagnostic services.
+                Offering high-quality cardiovascular care experiences, including
+                consultations and diagnostic services.
               </p>
             </div>
           </motion.div>
@@ -80,14 +65,14 @@ export default function MissionVision() {
               </h3>
 
               <p className="text-gray-300 text-lg leading-relaxed">
-                Best patient outcomes: Aim to achieve the best health outcomes for patients by preventing, diagnosing, and treating cardiovascular disease.
+                Best patient outcomes: Aim to achieve the best health outcomes
+                for patients by preventing, diagnosing, and treating
+                cardiovascular disease.
               </p>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-
-

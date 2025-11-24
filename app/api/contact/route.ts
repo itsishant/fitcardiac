@@ -50,8 +50,7 @@ export async function POST(request: NextRequest) {
                 <h1>New Contact Form Submission</h1>
                 <p>FIT CARDIAC DIAGNOSTIC CENTRE</p>
               </div>
-              <div class="content">
-                <div class="field">
+                <div class="field">k
                   <div class="label">Name:</div>
                   <div class="value">${name}</div>
                 </div>

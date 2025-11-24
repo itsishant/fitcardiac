@@ -56,7 +56,7 @@ export default function Statistics() {
           />
         </svg>
       ),
-      title: "879 Cardiac Centers and Hospitals",
+      title: "8 Cardiac Centers and Hospitals",
       description:
         "Access to a network of specialized cardiac care facilities and hospitals equipped with state-of-the-art technology for comprehensive heart health services.",
     },

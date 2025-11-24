@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HeartDiseaseStats from "@/components/HeartDiseaseStats";
 import Features from "@/components/Features";
+import HighlightsScroll from "@/components/HighlightsScroll";
 import WhyChoose from "@/components/WhyChoose";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
@@ -33,7 +34,9 @@ export default function Home() {
             <Hero />
             <HeartDiseaseStats />
             <Features />
-            <WhyChoose />
+            <div id="why-choose-section">
+              <WhyChoose />
+            </div>
             <Testimonials />
             <CTA />
           </main>

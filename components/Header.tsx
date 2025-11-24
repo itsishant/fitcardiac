@@ -51,25 +51,22 @@ export default function Header() {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-10 h-10 md:w-12 md:h-12">
-                <Image
-                  src="/logo.jpeg"
-                  alt="FIT CARDIAC DIAGNOSTIC CENTRE logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+<div className="relative w-20 h-20 md:w-27 md:h-27">
+  <Image
+    src="/logo.jpeg"
+    alt="FIT CARDIAC DIAGNOSTIC CENTRE logo"
+    fill
+    className="object-contain"
+    priority
+  />
+</div>
               <div className="flex flex-col leading-tight">
-                <span className="text-xs md:text-sm font-semibold tracking-[0.18em] text-secondary-gray uppercase">
+                <span className="text-xs ml-7 md:text-base font-sans font-semibold  text-secondary-gray uppercase">
                   Fit Cardiac
                 </span>
-                <span className="text-[10px] md:text-xs font-semibold text-primary-teal uppercase">
+                <span className="text-[10px] md:text-base font-semibold text-primary-teal uppercase">
                   Diagnostic Centre
-                </span>
-                <span className="text-[9px] md:text-[10px] text-secondary-gray-light uppercase">
-                  Where Every Heartbeat Matters
-                </span>
+                </span>                
               </div>
             </Link>
           </motion.div>
@@ -85,7 +82,7 @@ export default function Header() {
               >
                 <Link
                   href={item.href}
-                  className="text-secondary-gray hover:text-primary-teal transition-colors duration-200 font-medium"
+                  className="text-lg text-secondary-gray hover:text-primary-teal transition-colors duration-200 font-medium"
                 >
                   {item.name}
                 </Link>
@@ -102,14 +99,15 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsMoreOpen(!isMoreOpen)}
-                className="text-secondary-gray hover:text-primary-teal transition-colors duration-200 font-medium flex items-center"
+                className="text-lg text-secondary-gray hover:text-primary-teal transition-colors duration-200 font-medium flex items-center"
                 aria-expanded={isMoreOpen}
                 aria-haspopup="true"
               >
                 More
                 <svg
-                  className={`ml-1 w-4 h-4 transition-transform duration-200 ${isMoreOpen ? "rotate-180" : ""
-                    }`}
+                  className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                    isMoreOpen ? "rotate-180" : ""
+                  }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -145,14 +143,7 @@ export default function Header() {
                       onClick={() => setIsMoreOpen(false)}
                     >
                       Contact
-                    </Link>
-                    <Link
-                      href="/blog"
-                      className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors"
-                      onClick={() => setIsMoreOpen(false)}
-                    >
-                      Blog
-                    </Link>
+                    </Link>                   
                     <Link
                       href="/faq"
                       className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors"
@@ -177,7 +168,7 @@ export default function Header() {
               href="tel:+14165551234"
               className="text-secondary-gray hover:text-primary-teal transition-colors duration-200 font-medium"
             >
-              Call: +1 (416) 555-1234
+              Call: +1 (613) 676-1191
             </Link>
           </motion.div>
         </div>

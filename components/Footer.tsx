@@ -38,7 +38,7 @@ const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/fitcardiacdc?igsh=bXJvOXF0eW4zdDB0&utm_source=qr", label: "Instagram" },
 ];
 
 export default function Footer() {
