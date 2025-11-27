@@ -45,13 +45,6 @@ export async function POST(request: NextRequest) {
       spirometry,
       annualCheckup,
 
-      // Nuclear Cardiology
-      myocardialPerfusionExercise,
-      myocardialPerfusionPersantine,
-      myocardialPerfusionRest,
-      viabilityStudy,
-      ventricularFunctionRest,
-
       // Reasons for Test
       chestPain,
       palpitations,
@@ -68,22 +61,10 @@ export async function POST(request: NextRequest) {
 
       // Additional Comments
       additionalComments,
-    } = body;
 
-    // Validate required fields
-    if (
-      !physicianName ||
-      !physicianEmail ||
-      !patientFirstName ||
-      !patientLastName ||
-      !patientHealthCard ||
-      !patientPhone
-    ) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+      // PDF Attachment
+      pdfAttachment,
+    } = body;
 
     // Create transporter
     const transporter = nodemailer.createTransport({
@@ -95,7 +76,10 @@ export async function POST(request: NextRequest) {
     });
 
     // Helper to build list of selected items
-    const buildList = (items: { [key: string]: boolean | undefined }, labels: { [key: string]: string }) => {
+    const buildList = (
+      items: { [key: string]: boolean | undefined },
+      labels: { [key: string]: string }
+    ) => {
       return Object.keys(items)
         .filter((key) => items[key])
         .map((key) => labels[key]);
@@ -146,27 +130,10 @@ export async function POST(request: NextRequest) {
         treadmillStressEcho: "Treadmill Stress Echo",
         consultationAbnormal: "Consultation if test is Abnormal",
         restingECG: "Resting ECG",
-        holterMonitor72: "Holter Monitor 72 hours",
+        holterMonitor72: "Holter Monitor 24/48/72 hours",
         ambulatoryBP: "Ambulatory Blood Pressure Monitor",
         spirometry: "Spirometry",
         annualCheckup: "Annual Checkup Required",
-      }
-    );
-
-    const nuclearServices = buildList(
-      {
-        myocardialPerfusionExercise,
-        myocardialPerfusionPersantine,
-        myocardialPerfusionRest,
-        viabilityStudy,
-        ventricularFunctionRest,
-      },
-      {
-        myocardialPerfusionExercise: "Myocardial Perfusion (Thallium) - Exercise",
-        myocardialPerfusionPersantine: "Myocardial Perfusion (Thallium) - Persantine",
-        myocardialPerfusionRest: "Myocardial Perfusion (Thallium) - Rest",
-        viabilityStudy: "Viability Study (Thallium)",
-        ventricularFunctionRest: "Ventricular Function (MUGA) - Rest",
       }
     );
 
@@ -202,11 +169,11 @@ export async function POST(request: NextRequest) {
     );
 
     // Email to clinic
-    const mailOptions = {
+    const mailOptions: any = {
       from: process.env.EMAIL_USER,
-      to: "shadowtitan2007@gmail.com",
+      to: "fitcdcinfo@gmail.com",
       replyTo: physicianEmail,
-      subject: `New Referral - ${patientLastName}, ${patientFirstName}`,
+      subject: `Physician Referral Form - ${patientLastName}, ${patientFirstName}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -230,13 +197,20 @@ export async function POST(request: NextRequest) {
           <body>
             <div class="container">
               <div class="header">
-                <h1>CANADIAN HEART CARE - REFERRAL</h1>
+                <h1>Fit Cardiac
+Diagnostic Centre - REFERRAL</h1>
                 <p>Fax: (905) 248-3183</p>
               </div>
 
               <div class="section">
                 <div class="section-title">LOCATIONS</div>
-                ${locations.length > 0 ? locations.map(l => `<div class="list-item">${l}</div>`).join('') : '<em>None selected</em>'}
+                ${
+                  locations.length > 0
+                    ? locations
+                        .map((l) => `<div class="list-item">${l}</div>`)
+                        .join("")
+                    : "<em>None selected</em>"
+                }
               </div>
 
               <div class="section">
@@ -255,46 +229,80 @@ export async function POST(request: NextRequest) {
                 <div class="row"><div class="col"><span class="label">Name:</span> <span class="value">${physicianName}</span></div></div>
                 <div class="row"><div class="col"><span class="label">Address:</span> <span class="value">${physicianAddress}</span></div></div>
                 <div class="row">
-                  <div class="col"><span class="label">Billing No:</span> <span class="value">${physicianBillingNo || 'N/A'}</span></div>
+                  <div class="col"><span class="label">Billing No:</span> <span class="value">${
+                    physicianBillingNo || "N/A"
+                  }</span></div>
                   <div class="col"><span class="label">Phone:</span> <span class="value">${physicianPhone}</span></div>
                 </div>
                 <div class="row">
-                  <div class="col"><span class="label">Fax:</span> <span class="value">${physicianFax || 'N/A'}</span></div>
+                  <div class="col"><span class="label">Fax:</span> <span class="value">${
+                    physicianFax || "N/A"
+                  }</span></div>
                   <div class="col"><span class="label">Email:</span> <span class="value">${physicianEmail}</span></div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
-                  <div class="col"><span class="label">Signature:</span> <span class="value" style="font-family: 'Courier New', monospace; font-style: italic;">${physicianSignature || '(Not signed)'}</span></div>
+                  <div class="col"><span class="label">Signature:</span> <span class="value" style="font-family: 'Courier New', monospace; font-style: italic;">${
+                    physicianSignature || "(Not signed)"
+                  }</span></div>
                 </div>
               </div>
 
               <div class="section">
                 <div class="section-title">CARDIOLOGY</div>
-                ${cardiologyServices.length > 0 ? cardiologyServices.map(s => `<div class="list-item">${s}</div>`).join('') : '<em>None selected</em>'}
-              </div>
-
-              <div class="section">
-                <div class="section-title">NUCLEAR CARDIOLOGY (WATERLOO)</div>
-                ${nuclearServices.length > 0 ? nuclearServices.map(s => `<div class="list-item">${s}</div>`).join('') : '<em>None selected</em>'}
+                ${
+                  cardiologyServices.length > 0
+                    ? cardiologyServices
+                        .map((s) => `<div class="list-item">${s}</div>`)
+                        .join("")
+                    : "<em>None selected</em>"
+                }
               </div>
 
               <div class="section">
                 <div class="section-title">REASONS FOR TEST</div>
-                ${reasons.length > 0 ? reasons.map(r => `<div class="list-item">${r}</div>`).join('') : '<em>None selected</em>'}
+                ${
+                  reasons.length > 0
+                    ? reasons
+                        .map((r) => `<div class="list-item">${r}</div>`)
+                        .join("")
+                    : "<em>None selected</em>"
+                }
               </div>
 
               <div class="section">
                 <div class="section-title">ADDITIONAL COMMENTS</div>
-                <p>${additionalComments ? additionalComments.replace(/\n/g, '<br>') : '<em>None</em>'}</p>
+                <p>${
+                  additionalComments
+                    ? additionalComments.replace(/\n/g, "<br>")
+                    : "<em>None</em>"
+                }</p>
               </div>
 
               <div class="footer">
-                <p>This referral was submitted online via Canadian Heart Care website.</p>
+                <p>This referral was submitted online via
+                Fit Cardiac
+Diagnostic Centre website.</p>
               </div>
             </div>
           </body>
         </html>
       `,
     };
+
+    // Add PDF attachment if provided
+    if (pdfAttachment) {
+      const timestamp = new Date().toISOString().split("T")[0];
+      const filename = `Referral_${patientFirstName}_${patientLastName}_${timestamp}.pdf`;
+
+      mailOptions.attachments = [
+        {
+          filename: filename,
+          content: pdfAttachment,
+          encoding: "base64",
+          contentType: "application/pdf",
+        },
+      ];
+    }
 
     // Send email
     await transporter.sendMail(mailOptions);

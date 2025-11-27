@@ -47,6 +47,7 @@ export default function Header() {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Facilities", href: "/facilities" },
+    { name: "Physician Referral", href: "/referral" },
   ];
 
   return (
@@ -145,13 +146,6 @@ export default function Header() {
                     className="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
                   >
                     <Link
-                      href="/referral"
-                      className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors font-semibold"
-                      onClick={() => setIsMoreOpen(false)}
-                    >
-                      Physician Referral
-                    </Link>
-                    <Link
                       href="/contact"
                       className="block px-4 py-2 text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors"
                       onClick={() => setIsMoreOpen(false)}
@@ -227,13 +221,6 @@ export default function Header() {
 
                 {/* Mobile More Section */}
                 <div className="border-t border-gray-200 pt-2 mt-2">
-                  <Link
-                    href="/referral"
-                    className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg font-semibold"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Physician Referral
-                  </Link>
                   <Link
                     href="/contact"
                     className="block px-4 py-3 text-base text-secondary-gray hover:bg-primary-green-light hover:text-primary-teal transition-colors rounded-lg"

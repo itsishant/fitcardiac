@@ -2,9 +2,19 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { PDFDocument } from "pdf-lib";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { FileText, Download, Send, CheckCircle, MapPin, Heart, Activity, AlertCircle } from "lucide-react";
+import {
+  FileText,
+  Download,
+  Send,
+  CheckCircle,
+  MapPin,
+  Heart,
+  Activity,
+  AlertCircle,
+} from "lucide-react";
 
 export default function ReferralPage() {
   const [formData, setFormData] = useState({
@@ -99,12 +109,39 @@ export default function ReferralPage() {
     setSubmitStatus("idle");
 
     try {
+      // Generate the filled PDF
+      const pdfBase64 = await generateFilledPDF();
+
+      // Download the PDF for the user
+      if (pdfBase64) {
+        const pdfBytes = Uint8Array.from(atob(pdfBase64), (c) =>
+          c.charCodeAt(0)
+        );
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        const timestamp = new Date().toISOString().split("T")[0];
+        const patientName = `${formData.patientFirstName || "Patient"}_${
+          formData.patientLastName || "Referral"
+        }`.replace(/\s+/g, "_");
+        link.download = `Referral_${patientName}_${timestamp}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      // Send the email with PDF attachment
       const response = await fetch("/api/referral", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          pdfAttachment: pdfBase64, // Include PDF as base64
+        }),
       });
 
       if (response.ok) {
@@ -113,7 +150,7 @@ export default function ReferralPage() {
         window.scrollTo({ top: 0, behavior: "smooth" });
 
         // Reset form (optional, maybe better to keep for reference or print? Let's reset for now)
-        // setFormData({ ...initialState }); 
+        // setFormData({ ...initialState });
       } else {
         setSubmitStatus("error");
       }
@@ -122,6 +159,133 @@ export default function ReferralPage() {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const generateFilledPDF = async (): Promise<string | null> => {
+    try {
+      // Fetch the PDF template
+      const existingPdfBytes = await fetch(
+        "/referal form Canadian heart care.pdf"
+      ).then((res) => res.arrayBuffer());
+
+      // Load the PDF
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+      // Get the form
+      const form = pdfDoc.getForm();
+
+      // Map form data to PDF field names based on actual positions
+      // Left side (X ~119) = Patient Info, Right side (X ~372) = Doctor Info
+      const textFields = {
+        // Patient Information (Left side)
+        text_3dunk: formData.patientFirstName, // Top left - First Name
+        text_4nwqi: formData.patientLastName, // Second left - Last Name
+        text_7enbf: formData.patientAddress, // Third left - Address
+        text_8idof: formData.patientPhone, // Fourth left - Phone
+        text_9qor: formData.patientHealthCard, // Fifth left - Health Card
+        text_10ethr: formData.patientDOB, // Sixth left - DOB
+
+        // Doctor Information (Right side)
+        text_11ewrq: formData.physicianName, // Top right - Name
+        text_12lsqe: formData.physicianAddress, // Second right - Address
+        text_13xshm: formData.physicianBillingNo, // Third right - Billing No
+        text_14frj: formData.physicianPhone, // Fourth right - Phone (not fax)
+        text_15mpvm: formData.physicianFax, // Fifth right - Fax
+        text_20hlwq: formData.physicianEmail, // Bottom - Email
+      };
+
+      // Fill text fields
+      Object.entries(textFields).forEach(([fieldName, value]) => {
+        if (value) {
+          try {
+            const field = form.getTextField(fieldName);
+            field.setText(String(value));
+            console.log(`✓ Filled ${fieldName}: ${value}`);
+          } catch (e) {
+            console.error(`✗ Could not fill ${fieldName}:`, e);
+          }
+        }
+      });
+
+      // Map checkboxes - these need to match the order in your PDF
+      const checkboxMappings = [
+        { field: "checkbox_13teok", value: formData.cardiologyConsultation },
+        { field: "checkbox_14jwkl", value: formData.echocardiography },
+        { field: "checkbox_15icsi", value: formData.exerciseStressTest },
+        { field: "checkbox_16sumr", value: formData.treadmillStressEcho },
+        { field: "checkbox_17rgmv", value: formData.consultationAbnormal },
+        { field: "checkbox_18pwjb", value: formData.restingECG },
+        { field: "checkbox_19hkpk", value: formData.holterMonitor72 },
+        { field: "checkbox_20vnhf", value: formData.ambulatoryBP },
+        { field: "checkbox_21kunq", value: formData.spirometry },
+        { field: "checkbox_22ggie", value: formData.annualCheckup },
+        { field: "checkbox_23otib", value: formData.chestPain },
+        { field: "checkbox_24gnjo", value: formData.palpitations },
+        { field: "checkbox_25ftco", value: formData.sob },
+        { field: "checkbox_26jtlc", value: formData.syncopePresyncope },
+        { field: "checkbox_27iwml", value: formData.abnormalECG },
+        { field: "checkbox_28ip", value: formData.dizzinessFatigue },
+        { field: "checkbox_29puul", value: formData.pedalEdema },
+        { field: "checkbox_30vmoe", value: formData.hypertension },
+        { field: "checkbox_31mmze", value: formData.obesity },
+        { field: "checkbox_32ltuv", value: formData.miStroke },
+        { field: "checkbox_33gxxz", value: formData.highRiskFactors },
+        { field: "checkbox_34epuh", value: formData.otherReason },
+      ];
+
+      // Fill checkboxes
+      checkboxMappings.forEach(({ field, value }) => {
+        if (value) {
+          try {
+            const checkbox = form.getCheckBox(field);
+            checkbox.check();
+            console.log(`✓ Checked ${field}`);
+          } catch (e) {
+            console.error(`✗ Could not check ${field}:`, e);
+          }
+        }
+      });
+
+      // Additional comments - might be one of the remaining text fields
+      if (formData.additionalComments) {
+        // Try different fields for comments
+        const commentFields = [
+          "text_16rzik",
+          "text_17xmvn",
+          "text_18bgpi",
+          "text_19psqe",
+        ];
+        for (const fieldName of commentFields) {
+          try {
+            const field = form.getTextField(fieldName);
+            field.setText(formData.additionalComments);
+            console.log(`✓ Filled comments in ${fieldName}`);
+            break;
+          } catch (e) {
+            // Try next field
+          }
+        }
+      }
+
+      // Save the PDF with editable fields
+      const pdfBytes = await pdfDoc.save();
+
+      // Convert to base64 for sending to API
+      const base64 = btoa(
+        Array.from(pdfBytes)
+          .map((b) => String.fromCharCode(b))
+          .join("")
+      );
+
+      console.log("✓ PDF generated successfully with filled data!");
+      return base64;
+    } catch (error) {
+      console.error("Error filling PDF:", error);
+      alert(
+        "Could not generate PDF. The form will still be submitted via email."
+      );
+      return null;
     }
   };
 
@@ -157,46 +321,6 @@ export default function ReferralPage() {
         <section className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-5xl">
             <form onSubmit={handleSubmit} className="space-y-8">
-
-              {/* Locations */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
-              >
-                <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5" />
-                  <h2 className="text-xl font-bold uppercase tracking-wide">Locations</h2>
-                </div>
-                <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {[
-                    { name: "locationBramptonSouth", label: "BRAMPTON SOUTH", address: "Unit # 300, 2 County Court Blvd" },
-                    { name: "locationBramptonNorth", label: "BRAMPTON NORTH", address: "Unit # 4, 18 Corporation Dr" },
-                    { name: "locationMississauga", label: "MISSISSAUGA", address: "Unit # 402, 2255 Dundas St W" },
-                    { name: "locationMilton", label: "MILTON", address: "Unit # 109, 311 Commercial St" },
-                    { name: "locationWaterloo", label: "WATERLOO", address: "Unit # 202C, 725 Bridge St" },
-                    { name: "locationBowmanville", label: "BOWMANVILLE", address: "196 King St E" },
-                    { name: "locationNorthYork", label: "NORTH YORK", address: "450 Wilson Ave" },
-                    { name: "locationBurlington", label: "BURLINGTON", address: "3061 Walkers Line" },
-                    { name: "locationOakville", label: "OAKVILLE", address: "Unit # 6, Iroquois Shore Rd" },
-                  ].map((loc) => (
-                    <label key={loc.name} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer border border-transparent hover:border-gray-200 transition-all">
-                      <input
-                        type="checkbox"
-                        name={loc.name}
-                        checked={formData[loc.name as keyof typeof formData] as boolean}
-                        onChange={handleChange}
-                        className="mt-1 w-5 h-5 text-primary-teal rounded focus:ring-primary-teal"
-                      />
-                      <div>
-                        <div className="font-bold text-secondary-gray text-sm">{loc.label}</div>
-                        <div className="text-xs text-gray-500">{loc.address}</div>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </motion.div>
-
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Patient Information */}
                 <motion.div
@@ -207,32 +331,82 @@ export default function ReferralPage() {
                 >
                   <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
                     <FileText className="w-5 h-5" />
-                    <h2 className="text-xl font-bold uppercase tracking-wide">Patient Information</h2>
+                    <h2 className="text-xl font-bold uppercase tracking-wide">
+                      Patient Information
+                    </h2>
                   </div>
                   <div className="p-6 space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Patient First Name</label>
-                      <input type="text" name="patientFirstName" value={formData.patientFirstName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Patient First Name
+                      </label>
+                      <input
+                        type="text"
+                        name="patientFirstName"
+                        value={formData.patientFirstName}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Last Name</label>
-                      <input type="text" name="patientLastName" value={formData.patientLastName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Patient Last Name
+                      </label>
+                      <input
+                        type="text"
+                        name="patientLastName"
+                        value={formData.patientLastName}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Address</label>
-                      <input type="text" name="patientAddress" value={formData.patientAddress} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Patient Address
+                      </label>
+                      <input
+                        type="text"
+                        name="patientAddress"
+                        value={formData.patientAddress}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Patient Phone #</label>
-                      <input type="tel" name="patientPhone" value={formData.patientPhone} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Patient Phone No
+                      </label>
+                      <input
+                        type="tel"
+                        name="patientPhone"
+                        value={formData.patientPhone}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Health Card #</label>
-                      <input type="text" name="patientHealthCard" value={formData.patientHealthCard} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Health Card No
+                      </label>
+                      <input
+                        type="text"
+                        name="patientHealthCard"
+                        value={formData.patientHealthCard}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
-                      <input type="date" name="patientDOB" value={formData.patientDOB} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Date of Birth
+                      </label>
+                      <input
+                        type="date"
+                        name="patientDOB"
+                        value={formData.patientDOB}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -246,36 +420,95 @@ export default function ReferralPage() {
                 >
                   <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
                     <Activity className="w-5 h-5" />
-                    <h2 className="text-xl font-bold uppercase tracking-wide">Doctor Information</h2>
+                    <h2 className="text-xl font-bold uppercase tracking-wide">
+                      Doctor Information
+                    </h2>
                   </div>
                   <div className="p-6 space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Doctor Name</label>
-                      <input type="text" name="physicianName" value={formData.physicianName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Doctor Name
+                      </label>
+                      <input
+                        type="text"
+                        name="physicianName"
+                        value={formData.physicianName}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Doctor Address</label>
-                      <input type="text" name="physicianAddress" value={formData.physicianAddress} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Doctor Address
+                      </label>
+                      <input
+                        type="text"
+                        name="physicianAddress"
+                        value={formData.physicianAddress}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Billing No</label>
-                      <input type="text" name="physicianBillingNo" value={formData.physicianBillingNo} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Billing No
+                      </label>
+                      <input
+                        type="text"
+                        name="physicianBillingNo"
+                        value={formData.physicianBillingNo}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Doctor Tel #</label>
-                      <input type="tel" name="physicianPhone" value={formData.physicianPhone} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Doctor Contact No
+                      </label>
+                      <input
+                        type="tel"
+                        name="physicianPhone"
+                        value={formData.physicianPhone}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Doc Fax #</label>
-                      <input type="tel" name="physicianFax" value={formData.physicianFax} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Doc Fax No
+                      </label>
+                      <input
+                        type="tel"
+                        name="physicianFax"
+                        value={formData.physicianFax}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-                      <input type="email" name="physicianEmail" value={formData.physicianEmail} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none" required />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        name="physicianEmail"
+                        value={formData.physicianEmail}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none"
+                      />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Signature</label>
-                      <input type="text" name="physicianSignature" value={formData.physicianSignature} onChange={handleChange} placeholder="Type name to sign" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none bg-gray-50 italic" />
+                      <label className="block text-sm font-semibold text-gray-700 mb-1">
+                        Signature
+                      </label>
+                      <input
+                        type="text"
+                        name="physicianSignature"
+                        value={formData.physicianSignature}
+                        onChange={handleChange}
+                        placeholder="Type name to sign"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-teal focus:border-transparent outline-none bg-gray-50 italic"
+                      />
                     </div>
                   </div>
                 </motion.div>
@@ -290,74 +523,65 @@ export default function ReferralPage() {
               >
                 <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
                   <Heart className="w-5 h-5" />
-                  <h2 className="text-xl font-bold uppercase tracking-wide">Cardiology</h2>
+                  <h2 className="text-xl font-bold uppercase tracking-wide">
+                    Cardiology
+                  </h2>
                 </div>
                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                   {[
-                    { name: "cardiologyConsultation", label: "Cardiology Consultation" },
+                    {
+                      name: "cardiologyConsultation",
+                      label: "Cardiology Consultation",
+                    },
                     { name: "echocardiography", label: "Echocardiography" },
-                    { name: "exerciseStressTest", label: "Exercise Stress Test" },
-                    { name: "treadmillStressEcho", label: "Treadmill Stress Echo" },
-                    { name: "consultationAbnormal", label: "Consultation, if test is Abnormal" },
+                    {
+                      name: "exerciseStressTest",
+                      label: "Exercise Stress Test",
+                    },
+                    {
+                      name: "treadmillStressEcho",
+                      label: "Treadmill Stress Echo",
+                    },
+                    {
+                      name: "consultationAbnormal",
+                      label: "Consultation, if test is Abnormal",
+                    },
                     { name: "restingECG", label: "Resting ECG" },
-                    { name: "holterMonitor72", label: "Holter Monitor 72 hours" },
-                    { name: "ambulatoryBP", label: "Ambulatory Blood Pressure Monitor" },
+                    {
+                      name: "holterMonitor72",
+                      label: "Holter Monitor 24/48/72 hrs",
+                    },
+                    {
+                      name: "ambulatoryBP",
+                      label: "Ambulatory Blood Pressure Monitor",
+                    },
                     { name: "spirometry", label: "Spirometry" },
                     { name: "annualCheckup", label: "Annual Checkup Required" },
                   ].map((item) => (
-                    <label key={item.name} className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
+                    <label
+                      key={item.name}
+                      className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                    >
                       <input
                         type="checkbox"
                         name={item.name}
-                        checked={formData[item.name as keyof typeof formData] as boolean}
+                        checked={
+                          formData[
+                            item.name as keyof typeof formData
+                          ] as boolean
+                        }
                         onChange={handleChange}
                         className="w-5 h-5 text-primary-teal rounded focus:ring-primary-teal"
                       />
-                      <span className="text-secondary-gray font-medium">{item.label}</span>
+                      <span className="text-secondary-gray font-medium">
+                        {item.label}
+                      </span>
                     </label>
                   ))}
                 </div>
               </motion.div>
 
               {/* Nuclear Cardiology */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
-              >
-                <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
-                  <Activity className="w-5 h-5" />
-                  <h2 className="text-xl font-bold uppercase tracking-wide">Nuclear Cardiology (Waterloo)</h2>
-                </div>
-                <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-red-500 font-bold mb-4 uppercase text-sm tracking-wider">Myocardial Perfusion (Thallium)</h3>
-                    <div className="space-y-3">
-                      {[
-                        { name: "myocardialPerfusionExercise", label: "Exercise" },
-                        { name: "myocardialPerfusionPersantine", label: "Persantine" },
-                        { name: "myocardialPerfusionRest", label: "Rest" },
-                      ].map((item) => (
-                        <label key={item.name} className="flex items-center gap-3 cursor-pointer">
-                          <input type="checkbox" name={item.name} checked={formData[item.name as keyof typeof formData] as boolean} onChange={handleChange} className="w-5 h-5 text-primary-teal rounded focus:ring-primary-teal" />
-                          <span className="text-secondary-gray font-medium">{item.label}</span>
-                        </label>
-                      ))}
-                      <div className="flex items-center gap-3 ml-8 mt-2">
-                        <span className="text-sm text-gray-600">Viability Study (Thallium)</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-red-500 font-bold mb-4 uppercase text-sm tracking-wider">Ventricular Function (MUGA)</h3>
-                    <label className="flex items-center gap-3 cursor-pointer">
-                      <input type="checkbox" name="ventricularFunctionRest" checked={formData.ventricularFunctionRest} onChange={handleChange} className="w-5 h-5 text-primary-teal rounded focus:ring-primary-teal" />
-                      <span className="text-secondary-gray font-medium">Rest</span>
-                    </label>
-                  </div>
-                </div>
-              </motion.div>
 
               {/* Reasons for Test */}
               <motion.div
@@ -368,32 +592,56 @@ export default function ReferralPage() {
               >
                 <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
                   <AlertCircle className="w-5 h-5" />
-                  <h2 className="text-xl font-bold uppercase tracking-wide">Reasons for Test</h2>
+                  <h2 className="text-xl font-bold uppercase tracking-wide">
+                    Reasons for Test
+                  </h2>
                 </div>
                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                   {[
                     { name: "chestPain", label: "Chest Pain" },
                     { name: "palpitations", label: "Palpitations" },
                     { name: "sob", label: "SOB" },
-                    { name: "syncopePresyncope", label: "Syncope / Presyncope" },
+                    {
+                      name: "syncopePresyncope",
+                      label: "Syncope / Presyncope",
+                    },
                     { name: "abnormalECG", label: "Abnormal ECG" },
-                    { name: "dizzinessFatigue", label: "Dizziness, Fatigue of Unknown Origin" },
-                    { name: "pedalEdema", label: "Pedal Edema / Generalized Edema" },
+                    {
+                      name: "dizzinessFatigue",
+                      label: "Dizziness, Fatigue of Unknown Origin",
+                    },
+                    {
+                      name: "pedalEdema",
+                      label: "Pedal Edema / Generalized Edema",
+                    },
                     { name: "hypertension", label: "Hypertension" },
                     { name: "obesity", label: "Obesity (BMI>29)" },
                     { name: "miStroke", label: "Known case of MI, Stroke" },
-                    { name: "highRiskFactors", label: "High Cardiac Risk Factors (Age, Ethnicity, Smoking, Dyslipidemia)" },
+                    {
+                      name: "highRiskFactors",
+                      label:
+                        "High Cardiac Risk Factors (Age, Ethnicity, Smoking, Dyslipidemia)",
+                    },
                     { name: "otherReason", label: "Other" },
                   ].map((item) => (
-                    <label key={item.name} className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
+                    <label
+                      key={item.name}
+                      className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+                    >
                       <input
                         type="checkbox"
                         name={item.name}
-                        checked={formData[item.name as keyof typeof formData] as boolean}
+                        checked={
+                          formData[
+                            item.name as keyof typeof formData
+                          ] as boolean
+                        }
                         onChange={handleChange}
                         className="w-5 h-5 text-primary-teal rounded focus:ring-primary-teal"
                       />
-                      <span className="text-secondary-gray font-medium">{item.label}</span>
+                      <span className="text-secondary-gray font-medium">
+                        {item.label}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -408,7 +656,9 @@ export default function ReferralPage() {
               >
                 <div className="bg-secondary-gray text-white px-6 py-4 flex items-center gap-2">
                   <FileText className="w-5 h-5" />
-                  <h2 className="text-xl font-bold uppercase tracking-wide">Additional Comments</h2>
+                  <h2 className="text-xl font-bold uppercase tracking-wide">
+                    Additional Comments
+                  </h2>
                 </div>
                 <div className="p-6">
                   <textarea
@@ -429,17 +679,22 @@ export default function ReferralPage() {
                   disabled={isSubmitting}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className={`w-full max-w-md px-8 py-4 rounded-lg font-bold text-lg uppercase tracking-wider transition-all duration-200 shadow-lg flex items-center justify-center gap-2 ${isSubmitting
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-red-600 text-white hover:bg-red-700"
-                    }`}
+                  className={`w-full max-w-md px-8 py-4 rounded-lg font-bold text-lg uppercase tracking-wider transition-all duration-200 shadow-lg flex items-center justify-center gap-2 ${
+                    isSubmitting
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-red-600 text-white hover:bg-red-700"
+                  }`}
                 >
                   {isSubmitting ? (
                     <>
                       <motion.div
                         className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                       />
                       Sending...
                     </>
@@ -468,17 +723,19 @@ export default function ReferralPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="w-full max-w-md p-4 bg-red-100 text-red-700 rounded-lg text-center"
                   >
-                    Error submitting referral. Please try again or fax to (905) 248-3183.
+                    Error submitting referral. Please try again or fax to (905)
+                    248-3183.
                   </motion.div>
                 )}
 
                 <p className="text-sm text-gray-500 text-center mt-4">
                   48 hrs notice is required for any Cancellations or Rebooking
                   <br />
-                  <span className="font-bold text-red-600">Fax: (905) 248-3183</span>
+                  <span className="font-bold text-red-600">
+                    Fax: (905) 248-3183
+                  </span>
                 </p>
               </div>
-
             </form>
           </div>
         </section>

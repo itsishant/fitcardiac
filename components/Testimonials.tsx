@@ -80,23 +80,13 @@ export default function Testimonials() {
               <p className="text-secondary-gray-light mb-6 leading-relaxed italic">
                 "{testimonial.text}"
               </p>
-              <div className="flex items-center gap-4">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-secondary-gray">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-sm text-secondary-gray-light">
-                    {testimonial.role}
-                  </p>
-                </div>
+              <div>
+                <h4 className="font-bold text-secondary-gray">
+                  {testimonial.name}
+                </h4>
+                <p className="text-sm text-secondary-gray-light">
+                  {testimonial.role}
+                </p>
               </div>
             </motion.div>
           ))}

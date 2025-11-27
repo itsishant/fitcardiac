@@ -6,13 +6,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, email, phone, subject, message } = body;
 
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
 
     // Create transporter - You'll need to configure this with actual email credentials
     // For Gmail, you'll need to enable "Less secure app access" or use App Passwords
@@ -27,7 +20,7 @@ export async function POST(request: NextRequest) {
     // Email to clinic
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: "shadowtitan2007@gmail.com",
+      to: "fitcdcinfo@gmail.com",
       subject: `New Contact Form Submission: ${subject}`,
       html: `
         <!DOCTYPE html>
@@ -50,7 +43,7 @@ export async function POST(request: NextRequest) {
                 <h1>New Contact Form Submission</h1>
                 <p>FIT CARDIAC DIAGNOSTIC CENTRE</p>
               </div>
-                <div class="field">k
+                <div class="field">
                   <div class="label">Name:</div>
                   <div class="value">${name}</div>
                 </div>
@@ -58,15 +51,16 @@ export async function POST(request: NextRequest) {
                   <div class="label">Email:</div>
                   <div class="value">${email}</div>
                 </div>
-                ${phone
-          ? `
+                ${
+                  phone
+                    ? `
                 <div class="field">
                   <div class="label">Phone:</div>
                   <div class="value">${phone}</div>
                 </div>
                 `
-          : ""
-        }
+                    : ""
+                }
                 <div class="field">
                   <div class="label">Subject:</div>
                   <div class="value">${subject}</div>
