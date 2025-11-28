@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { HeartPulse, Heart, ChevronRight, ChevronLeft } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
@@ -170,7 +171,7 @@ export default function Hero() {
                   />
 
                   {/* Animated Heartbeat Line at Top */}
-                  <motion.div className="absolute top-8 left-0 right-0 mt-32 px-8 z-20">
+                  <motion.div className="absolute top-8 left-0 right-0 mt-18 px-8 z-20">
                     <svg
                       viewBox="0 0 800 80"
                       className="w-full h-20 font-bold text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"
@@ -198,14 +199,30 @@ export default function Hero() {
                     </svg>
                   </motion.div>
 
+                  <motion.div
+                    className="absolute bottom-56 left-[260px]  translate-x-1/2 z-20"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.8 }}
+                  >
+                    <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white/90 backdrop-blur-sm p-6 shadow-2xl">
+                      <Image
+                        src="/logo-removebg-preview.png"
+                        alt="FIT CARDIAC Logo"
+                        fill
+                        className="object-contain p-2"
+                      />
+                    </div>
+                  </motion.div>
+
                   {/* Marquee Text in Middle */}
 
                   {/* Main Content - Multiple Scrollable Sections */}
                   <div className="relative z-10 flex flex-row items-center justify-start h-full w-full snap-x snap-mandatory">
                     {/* Section 1 - Heartbeat Chart */}
                     <div className="min-w-full flex-shrink-0 snap-start flex flex-col items-center justify-center h-full gap-10 px-4 sm:px-8">
-                      <motion.div className="absolute down-0 left-0 right-0 mt-52 translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm py-3">
-                        <Marquee speed={60} gradient={false} direction="right">
+                      <motion.div className="absolute down-0 left-0 right-0 mt-80 translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm py-3">
+                        <Marquee speed={60} gradient={false} direction="left">
                           <span className="text-black font-bold font-sans text-sm sm:text-base md:text-lg mx-10 tracking-wide ">
                             FIT CARDIAC DIAGNOSTIC CENTRE —
                             <span className="text-neutral-300 font-bold font-sans">

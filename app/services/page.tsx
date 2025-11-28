@@ -294,36 +294,7 @@ export default function ServicesPage() {
                   </motion.div>
 
                   {/* Echocardiogram */}
-                  <motion.div
-                    whileHover={{ y: -5 }}
-                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-4">
-                      <Activity className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
-                      Echocardiogram
-                    </h4>
-                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Precision ultrasound imaging to assess heart structure,
-                      function, and blood flow.
-                    </p>
-                    <ul className="space-y-2 mb-6">
-                      {[
-                        "Heart Structure Analysis",
-                        "Valve Function",
-                        "Blood Flow Assessment",
-                      ].map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
+                 
 
                   {/* Stress Echocardiogram */}
                   <motion.div
@@ -401,7 +372,7 @@ export default function ServicesPage() {
                       Heart Monitor (Holter)
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      24-48 hour portable monitoring to track heart rhythm
+                      24-48-72 hours 7-14 days portable monitoring to track heart rhythm
                       during daily activities.
                     </p>
                     <ul className="space-y-2 mb-6">
@@ -490,21 +461,21 @@ export default function ServicesPage() {
                     whileHover={{ y: -5 }}
                     className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mb-4">
                       <Activity className="w-6 h-6 text-white" />
                     </div>
                     <h4 className="text-xl font-bold text-secondary-gray mb-3">
-                      Spirometry
+                      Echocardiogram
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      Pulmonary function testing to assess lung health and
-                      diagnose respiratory conditions.
+                      Precision ultrasound imaging to assess heart structure,
+                      function, and blood flow.
                     </p>
                     <ul className="space-y-2 mb-6">
                       {[
-                        "Lung Function Test",
-                        "Airflow Measurement",
-                        "Respiratory Assessment",
+                        "Heart Structure Analysis",
+                        "Valve Function",
+                        "Blood Flow Assessment",
                       ].map((item, i) => (
                         <li
                           key={i}

@@ -16,7 +16,7 @@ const quickFacts = [
     title: "Full",
     value: "Comprehensive Diagnostics",
     description:
-      "Advanced diagnostic tools including ECG, echocardiography, and cardiac MRI for accurate assessment",
+      "Advanced diagnostic tools including ECG and echocardiography for accurate assessment",
   },
   {
     icon: Stethoscope,

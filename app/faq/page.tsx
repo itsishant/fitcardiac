@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "What cardiac services do you offer?",
     answer:
-      "We offer comprehensive cardiac services including consultations, diagnostics (ECG, echocardiography, stress tests, cardiac MRI), preventive cardiology, cardiac rehabilitation, interventional procedures, and cardiac surgery. Our services are available at multiple facilities across our network.",
+      "We offer comprehensive cardiac services including consultations, diagnostics (ECG, echocardiography, stress tests), preventive cardiology, cardiac rehabilitation, interventional procedures, and cardiac surgery. Our services are available at multiple facilities across our network.",
   },
   {
     question: "Do you provide emergency cardiac care?",

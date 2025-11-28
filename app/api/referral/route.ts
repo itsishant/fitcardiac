@@ -42,7 +42,6 @@ export async function POST(request: NextRequest) {
       restingECG,
       holterMonitor72,
       ambulatoryBP,
-      spirometry,
       annualCheckup,
 
       // Reasons for Test
@@ -120,7 +119,7 @@ export async function POST(request: NextRequest) {
         restingECG,
         holterMonitor72,
         ambulatoryBP,
-        spirometry,
+
         annualCheckup,
       },
       {
@@ -132,7 +131,6 @@ export async function POST(request: NextRequest) {
         restingECG: "Resting ECG",
         holterMonitor72: "Holter Monitor 24/48/72 hours",
         ambulatoryBP: "Ambulatory Blood Pressure Monitor",
-        spirometry: "Spirometry",
         annualCheckup: "Annual Checkup Required",
       }
     );

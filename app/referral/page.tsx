@@ -175,24 +175,24 @@ export default function ReferralPage() {
       // Get the form
       const form = pdfDoc.getForm();
 
-      // Map form data to PDF field names based on actual positions
-      // Left side (X ~119) = Patient Info, Right side (X ~372) = Doctor Info
+      // Map form data to PDF field names based on actual positions from scan
+      // Order: Top to Bottom, Left to Right
       const textFields = {
         // Patient Information (Left side)
-        text_3dunk: formData.patientFirstName, // Top left - First Name
-        text_4nwqi: formData.patientLastName, // Second left - Last Name
-        text_7enbf: formData.patientAddress, // Third left - Address
-        text_8idof: formData.patientPhone, // Fourth left - Phone
-        text_9qor: formData.patientHealthCard, // Fifth left - Health Card
-        text_10ethr: formData.patientDOB, // Sixth left - DOB
+        text_3dunk: formData.patientFirstName, // Y=648 - First Name
+        text_4nwqi: formData.patientLastName, // Y=631 - Last Name
+        text_7enbf: formData.patientAddress, // Y=618 - Address
+        text_8idof: formData.patientPhone, // Y=602 - Phone
+        text_9qor: formData.patientHealthCard, // Y=587 - Health Card
+        text_10ethr: formData.patientDOB, // Y=571 - DOB
 
         // Doctor Information (Right side)
-        text_11ewrq: formData.physicianName, // Top right - Name
-        text_12lsqe: formData.physicianAddress, // Second right - Address
-        text_13xshm: formData.physicianBillingNo, // Third right - Billing No
-        text_14frj: formData.physicianPhone, // Fourth right - Phone (not fax)
-        text_15mpvm: formData.physicianFax, // Fifth right - Fax
-        text_20hlwq: formData.physicianEmail, // Bottom - Email
+        text_11ewrq: formData.physicianName, // Y=647 - Name
+        text_12lsqe: formData.physicianAddress, // Y=633 - Address
+        text_13xshm: formData.physicianBillingNo, // Y=617 - Billing No
+        text_14frj: formData.physicianPhone, // Y=602 - Phone
+        text_15mpvm: formData.physicianFax, // Y=583 - Fax
+        text_38mliz: formData.physicianEmail, // Y=565 - Email (NEW FIELD)
       };
 
       // Fill text fields
@@ -207,6 +207,39 @@ export default function ReferralPage() {
           }
         }
       });
+
+      // Signature - use text_20hlwq
+      if (formData.physicianSignature) {
+        try {
+          const field = form.getTextField("text_20hlwq");
+          field.setText(formData.physicianSignature);
+          console.log(
+            `✓ Filled signature in text_20hlwq: ${formData.physicianSignature}`
+          );
+        } catch (e) {
+          console.error("✗ Could not fill signature:", e);
+        }
+      }
+
+      // Additional comments - use text_36zwcw (large field for comments)
+      if (formData.additionalComments) {
+        try {
+          const field = form.getTextField("text_36zwcw");
+          field.setText(formData.additionalComments);
+          console.log(`✓ Filled additional comments in text_36zwcw`);
+        } catch (e) {
+          console.log(
+            "Could not fill comments in text_36zwcw, trying text_37zabz..."
+          );
+          try {
+            const field = form.getTextField("text_37zabz");
+            field.setText(formData.additionalComments);
+            console.log(`✓ Filled additional comments in text_37zabz`);
+          } catch (e2) {
+            console.error("✗ Could not fill additional comments:", e2);
+          }
+        }
+      }
 
       // Map checkboxes - these need to match the order in your PDF
       const checkboxMappings = [
@@ -247,24 +280,54 @@ export default function ReferralPage() {
         }
       });
 
-      // Additional comments - might be one of the remaining text fields
+      // Additional comments - find any remaining text fields
       if (formData.additionalComments) {
-        // Try different fields for comments
-        const commentFields = [
-          "text_16rzik",
-          "text_17xmvn",
-          "text_18bgpi",
-          "text_19psqe",
-        ];
-        for (const fieldName of commentFields) {
+        // Get all text fields to find unused ones
+        const allFields = form.getFields();
+        const allTextFields = allFields.filter(
+          (f) => f.constructor.name === "PDFTextField"
+        );
+
+        // Try to find and fill the comments field
+        let commentsFilled = false;
+        for (const field of allTextFields) {
+          const fieldName = field.getName();
+          // Skip already filled fields
+          if (
+            [
+              "text_3dunk",
+              "text_4nwqi",
+              "text_7enbf",
+              "text_8idof",
+              "text_9qor",
+              "text_10ethr",
+              "text_11ewrq",
+              "text_12lsqe",
+              "text_13xshm",
+              "text_14frj",
+              "text_15mpvm",
+              "text_38mliz",
+              "text_20hlwq",
+              "text_36zwcw",
+              "text_37zabz",
+            ].includes(fieldName)
+          ) {
+            continue;
+          }
+
           try {
-            const field = form.getTextField(fieldName);
-            field.setText(formData.additionalComments);
+            const textField = form.getTextField(fieldName);
+            textField.setText(formData.additionalComments);
             console.log(`✓ Filled comments in ${fieldName}`);
+            commentsFilled = true;
             break;
           } catch (e) {
             // Try next field
           }
+        }
+
+        if (!commentsFilled) {
+          console.log("⚠ Could not find a field for additional comments");
         }
       }
 

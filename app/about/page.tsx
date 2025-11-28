@@ -243,9 +243,7 @@ export default function AboutPage() {
           <div className="container mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { number: "8+", label: "Healthcare Facilities" },
                 { number: "10+", label: "Specialists" },
-                { number: "100+", label: "Patients Treated" },
                 { number: "20+", label: "Years of Excellence" },
               ].map((stat, index) => (
                 <motion.div

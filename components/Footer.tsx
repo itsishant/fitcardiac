@@ -17,20 +17,14 @@ const footerLinks = {
   company: [
     { name: "About Us", href: "/about" },
     { name: "Our Services", href: "/services" },
-    { name: "Our Doctors", href: "/doctors" },
     { name: "Facilities", href: "/facilities" },
   ],
   support: [
     { name: "Contact Us", href: "/contact" },
     { name: "FAQ", href: "/faq" },
-    { name: "Blog", href: "/blog" },
     { name: "Privacy Policy", href: "/privacy" },
   ],
   resources: [
-    { name: "Health Tips", href: "/health-tips" },
-    { name: "Cardiac Care Guide", href: "/guide" },
-    { name: "Emergency Services", href: "/emergency" },
-    { name: "Patient Portal", href: "/portal" },
   ],
 };
 

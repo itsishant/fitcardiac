@@ -124,6 +124,44 @@ export default function FacilitiesPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="FIT CARDIAC Facility Location"
               />
+              <div className="p-6 bg-white border-t border-gray-200">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-6 h-6 text-primary-teal flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-lg text-secondary-gray mb-1">
+                      FIT CARDIAC Diagnostic Centre
+                    </h3>
+                    <p className="text-secondary-gray-light">
+                      3530 Derry Road East (#110)
+                      <br />
+                      Mississauga, ON, L4T 4E3
+                      <br />
+                      Canada
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/dir//3530+Derry+Rd+E,+Mississauga,+ON+L4T+4E3,+Canada"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-3 text-primary-teal hover:text-primary-green font-medium"
+                    >
+                      Get Directions
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
