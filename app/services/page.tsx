@@ -294,7 +294,6 @@ export default function ServicesPage() {
                   </motion.div>
 
                   {/* Echocardiogram */}
-                 
 
                   {/* Stress Echocardiogram */}
                   <motion.div
@@ -372,8 +371,8 @@ export default function ServicesPage() {
                       Heart Monitor (Holter)
                     </h4>
                     <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
-                      24-48-72 hours 7-14 days portable monitoring to track heart rhythm
-                      during daily activities.
+                      24-48-72 hours 7-14 days portable monitoring to track
+                      heart rhythm during daily activities.
                     </p>
                     <ul className="space-y-2 mb-6">
                       {[
@@ -430,7 +429,7 @@ export default function ServicesPage() {
                     className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
                   >
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
-                      <Activity className="w-6 h-6 text-white" />
+                      <span className="text-white font-bold text-lg">BP</span>
                     </div>
                     <h4 className="text-xl font-bold text-secondary-gray mb-3">
                       Ambulatory BP Monitor
@@ -476,6 +475,39 @@ export default function ServicesPage() {
                         "Heart Structure Analysis",
                         "Valve Function",
                         "Blood Flow Assessment",
+                        "Contrast Echocardiography",
+                      ].map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-sm text-secondary-gray-light"
+                        >
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-teal" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+
+                  {/* Contrast ECHO */}
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:border-primary-teal/50 transition-all duration-300 flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center mb-4">
+                      <Heart className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-secondary-gray mb-3">
+                      Contrast ECHO
+                    </h4>
+                    <p className="text-sm text-secondary-gray-light mb-4 flex-grow">
+                      High-resolution cardiac imaging for accurate diagnosis and
+                      improved treatment planning.
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {[
+                        "Enhanced Visualization",
+                        "Precise Heart Function Assessment",
+                        "Better Detection of Hidden Abnormalities",
                       ].map((item, i) => (
                         <li
                           key={i}
