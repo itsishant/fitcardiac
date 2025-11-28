@@ -205,7 +205,7 @@ export default function Hero() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
                   >
-                    <div className="relative w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white/90 backdrop-blur-sm p-6 shadow-2xl">
+                    <div className="relative w-56 h-56 sm:w-56 sm:h-56 md:w-56 md:h-56 rounded-full bg-white/90 backdrop-blur-sm p-6 shadow-2xl">
                       <Image
                         src="/logo-removebg-preview.png"
                         alt="FIT CARDIAC Logo"
