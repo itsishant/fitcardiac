@@ -201,9 +201,17 @@ export default function Hero() {
 
                   <motion.div
                     className="absolute bottom-56 left-[260px]  translate-x-1/2 z-20"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
+                    initial={{ opacity: 1, scale: 0.8 }}
+                    animate={{
+                      opacity: 1,
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      delay: 0.1,
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     <div className="relative w-56 h-56 sm:w-56 sm:h-56 md:w-56 md:h-56 rounded-full bg-white/90 backdrop-blur-sm p-6 shadow-2xl">
                       <Image

@@ -22,7 +22,6 @@ const footerLinks = {
   support: [
     { name: "Contact Us", href: "/contact" },
     { name: "FAQ", href: "/faq" },
-    { name: "Privacy Policy", href: "/privacy" },
   ],
   resources: [
   ],
